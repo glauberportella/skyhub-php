@@ -1,0 +1,22 @@
+{
+    "name": "glauberportella/skyhub-php",
+    "description": "PHP Library for SkyHub.com.br API",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Glauber Portella",
+            "email": "glauberportella@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "GlauberPortella\\": "src/"
+        }
+    }
+}
