@@ -21,7 +21,27 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
+use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+
 class AttributeRequest extends Request
 {
-	
+	public function get($code = null)
+	{
+
+	}
+
+    public function post(ApiResourceInterface $resource)
+    {
+
+    }
+
+    public function put($code)
+    {
+
+    }
+
+    public function delete($code)
+    {
+
+    }
 }

@@ -22,9 +22,15 @@
 namespace GlauberPortella\SkyHub\Request;
 
 use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use GlauberPortella\SkyHub\Security\Auth;
 
 abstract class Request implements RequestInterface
 {
+    /**
+     * @var \GlauberPortella\SkyHub\Security\Auth
+     */
+    protected $auth;
+
 	/**
 	 * @var integer
 	 */
@@ -35,10 +41,15 @@ abstract class Request implements RequestInterface
 	 */
 	protected $perPage;
 
-	public function get($code = null);
-    public function post(ApiResourceInterface $resource);
-    public function put($code);
-    public function delete($code);
+    public function __construct(Auth $auth)
+    {
+        $this->auth = $auth;
+    }
+
+	abstract public function get($code = null);
+    abstract public function post(ApiResourceInterface $resource);
+    abstract public function put($code);
+    abstract public function delete($code);
 
     /**
      * Gets the value of page.

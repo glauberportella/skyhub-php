@@ -21,12 +21,29 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
+use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+
 class OrderRequest extends Request
 {
-	public function send()
+	public function get($code = null)
 	{
-		
+
 	}
+
+    public function post(ApiResourceInterface $resource)
+    {
+
+    }
+
+    public function put($code)
+    {
+
+    }
+    
+    public function delete($code)
+    {
+
+    }
 
 	public function notSynced()
 	{
