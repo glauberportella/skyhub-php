@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Request;
+namespace Tests\Unit\SkyHub\Request;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->auth = new \GlauberPortella\SkyHub\Security\Auth();
 	}
-	
+
 	public function testApiSkyHubEndpointSuccessfully()
 	{
 		$attributes = new \GlauberPortella\SkyHub\Request\AttributeRequest($this->auth);
