@@ -16,5 +16,6 @@ composer.lock
 # SUBLIME TEXT
 ######################
 *.sublime-project
+*.sublime-workspace
 .phpintel
 phpclass.sublime-classdb
