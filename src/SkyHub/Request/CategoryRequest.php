@@ -25,6 +25,11 @@ use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
 
 class CategoryRequest extends Request
 {
+    public function endpoint()
+    {
+        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/categories';
+    }
+
 	public function get($code = null)
 	{
 

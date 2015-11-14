@@ -23,8 +23,13 @@ namespace GlauberPortella\SkyHub\Request;
 
 use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
 
-class OrderStatusRequest extends Request
+class StatusTypeRequest extends Request
 {
+    public function endpoint()
+    {
+        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/status_types';
+    }
+
 	public function get($code = null)
 	{
 

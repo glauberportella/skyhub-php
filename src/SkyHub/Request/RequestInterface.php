@@ -25,6 +25,14 @@ use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
 
 interface RequestInterface
 {
+	const SKYHUB_BASE_API_ENDPOINT = 'https://in.skyhub.com.br';
+	
+	/**
+	 * Returns an API endpoint URL
+	 * @return [type] [description]
+	 */
+	public function endpoint();
+
 	/**
 	 * Sends a GET request
 	 * 

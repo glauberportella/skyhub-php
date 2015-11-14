@@ -46,6 +46,8 @@ abstract class Request implements RequestInterface
         $this->auth = $auth;
     }
 
+    abstract public function endpoint();
+
 	abstract public function get($code = null);
     abstract public function post(ApiResourceInterface $resource);
     abstract public function put($code);
