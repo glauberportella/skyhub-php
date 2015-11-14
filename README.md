@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/glauberportella/skyhub-php.svg?branch=master)](https://travis-ci.org/glauberportella/skyhub-php)
+
 #A PHP Library for SkyHub API
 
 The purpose of this lib is to create an abstracted layer to facilitate the use of [SkyHub API](http://www.skyhub.com.br) by PHP developers.
