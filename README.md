@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/glauberportella/skyhub-php.svg?branch=master)](https://travis-ci.org/glauberportella/skyhub-php)
+[![Build Status](https://travis-ci.org/glauberportella/skyhub-php.svg?branch=master)](https://travis-ci.org/glauberportella/skyhub-php) [![Code Climate](https://codeclimate.com/github/glauberportella/skyhub-php/badges/gpa.svg)](https://codeclimate.com/github/glauberportella/skyhub-php) [![Test Coverage](https://codeclimate.com/github/glauberportella/skyhub-php/badges/coverage.svg)](https://codeclimate.com/github/glauberportella/skyhub-php/coverage)
 
 #A PHP Library for SkyHub API
 
