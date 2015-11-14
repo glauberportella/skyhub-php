@@ -19,9 +19,9 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Resource;
+namespace GlauberPortella\SkyHub\Resource;
 
-abstract class ApiResource
+abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 {
 	/**
 	 * @var array
@@ -46,5 +46,10 @@ abstract class ApiResource
 	public function __unset($name)
 	{
 		unset($this->data[$name]);
+	}
+
+	public function jsonSerialize()
+	{
+		return $this->data;
 	}
 }

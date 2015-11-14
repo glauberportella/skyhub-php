@@ -19,9 +19,41 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Request;
+namespace GlauberPortella\SkyHub\Request;
+
+use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
 
 interface RequestInterface
 {
-	public function send();
+	/**
+	 * Sends a GET request
+	 * 
+	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
+	 * @return Array|ApiResourceInterface Returns array of ApiResourceInterface instances or a ApiResourceInterface instance only
+	 */
+	public function get($code = null);
+
+	/**
+	 * Sends a POST request
+	 * 
+	 * @param  ApiResourceInterface $resource The resource to be sent
+	 * @return void
+	 */
+	public function post(ApiResourceInterface $resource);
+
+	/**
+	 * Sends a PUT request
+	 * 
+	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
+	 * @return ApiResourceInterface The updated resource
+	 */
+	public function put($code);
+
+	/**
+	 * Sends a DELETE request
+	 * 
+	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
+	 * @return void
+	 */
+	public function delete($code);
 }

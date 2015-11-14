@@ -19,7 +19,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Exception;
+namespace GlauberPortella\SkyHub\Exception;
 
 class NotAcceptableException extends RequestException
 {

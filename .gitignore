@@ -1,3 +1,20 @@
 /vendor/
-.phpintel
+
+######################
+# ECLIPSE PDT
+######################
 .settings
+.buildpath
+.project
+
+######################
+# COMPOSER
+######################
+composer.lock
+
+######################
+# SUBLIME TEXT
+######################
+*.sublime-project
+.phpintel
+phpclass.sublime-classdb

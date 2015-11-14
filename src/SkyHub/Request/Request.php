@@ -19,7 +19,9 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Request;
+namespace GlauberPortella\SkyHub\Request;
+
+use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
 
 abstract class Request implements RequestInterface
 {
@@ -33,7 +35,10 @@ abstract class Request implements RequestInterface
 	 */
 	protected $perPage;
 
-	public function send();
+	public function get($code = null);
+    public function post(ApiResourceInterface $resource);
+    public function put($code);
+    public function delete($code);
 
     /**
      * Gets the value of page.

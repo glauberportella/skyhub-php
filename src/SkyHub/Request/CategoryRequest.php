@@ -19,7 +19,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Request;
+namespace GlauberPortella\SkyHub\Request;
 
 class CategoryRequest extends Request
 {
