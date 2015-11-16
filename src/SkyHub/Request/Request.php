@@ -21,8 +21,9 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use GlauberPortella\SkyHub\Resource\ApiResource;
 use GlauberPortella\SkyHub\Security\Auth;
+use Httpful\Request as HttpfulRequest;
 
 abstract class Request implements RequestInterface
 {
@@ -34,24 +35,86 @@ abstract class Request implements RequestInterface
 	/**
 	 * @var integer
 	 */
-	protected $page;
+	protected $page = 1;
 
 	/**
 	 * @var integer
 	 */
-	protected $perPage;
+	protected $perPage = 30;
+
+    /**
+     * Must be set for every child to the complete classname (with namespace) for the resource
+     * @var string
+     */
+    protected $resourceClassName;
+
+    /**
+     * Request template
+     * @var \Httpful\Request A requet template
+     */
+    private $requestTemplate;
+
+    abstract public function endpoint();
+    abstract public function post(ApiResource $resource);
+    abstract public function put($code);
+    abstract public function delete($code);
 
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
+
+        $this->requestTemplate = HttpfulRequest::init()
+            ->expectsJson()
+            ->addHeader('X-User-Email', $this->auth->getEmail())
+            ->addHeader('X-User-Token', $this->auth->getToken())
+        ;
+
+        HttpfulRequest::ini($this->requestTemplate);
     }
 
-    abstract public function endpoint();
+    public function get($code = null, array $params = array())
+    {
+        $url = $this->generateUrl($code, $params);
+        $response = HttpfulRequest::get($url)->send();
+        $resources = $this->responseToResources($response);
+        return $resources;
+    }
 
-	abstract public function get($code = null);
-    abstract public function post(ApiResourceInterface $resource);
-    abstract public function put($code);
-    abstract public function delete($code);
+    public function responseToResources(\Httpful\Response $response)
+    {
+        $resources = null;
+
+        if (is_array($response->body)) {
+            $resources = array();
+            foreach ($response->body as $data) {
+                $o = new $this->resourceClassName;
+                foreach ($data as $prop => $val) {
+                    $o->$prop = $val;
+                }
+                $resources[] = $o;
+            }
+        } else {
+            $resources = new $this->resourceClassName;
+            foreach ($response->body as $prop => $val) {
+                $resources->$prop = $val;
+            }
+        }
+
+        return $resources;
+    }
+
+    public function generateUrl($path = null, array $params = array())
+    {
+        $url = $this->endpoint();
+
+        if (!empty($path))
+            $url .= '/'.$path;
+
+        if (!empty($params))
+            $url .= '?'.http_build_query($params);
+
+        return $url;
+    }
 
     /**
      * Gets the value of page.

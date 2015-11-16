@@ -21,21 +21,18 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use GlauberPortella\SkyHub\Resource\ApiResource;
 
 class CategoryRequest extends Request
 {
+    protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Category';
+
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/categories';
     }
 
-	public function get($code = null)
-	{
-
-	}
-
-    public function post(ApiResourceInterface $resource)
+    public function post(ApiResource $resource)
     {
 
     }

@@ -21,21 +21,23 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use GlauberPortella\SkyHub\Resource\ApiResource;
 
 class ProductRequest extends Request
 {
+    protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Attribute';
+
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/products';
     }
 
-	public function get($code = null)
+	public function get($code = null, array $params = array())
 	{
 
 	}
 
-    public function post(ApiResourceInterface $resource)
+    public function post(ApiResource $resource)
     {
 
     }

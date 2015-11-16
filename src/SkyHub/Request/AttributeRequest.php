@@ -21,21 +21,21 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use GlauberPortella\SkyHub\Resource\ApiResource;
+use GlauberPortella\SkyHub\Resource\Attribute;
+
+use Httpful\Request as HttpfulRequest;
 
 class AttributeRequest extends Request
 {
+    protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Attribute';
+
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/attributes';
     }
 
-	public function get($code = null)
-	{
-
-	}
-
-    public function post(ApiResourceInterface $resource)
+    public function post(ApiResource $resource)
     {
 
     }

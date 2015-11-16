@@ -21,12 +21,14 @@
 
 namespace GlauberPortella\SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use GlauberPortella\SkyHub\Resource\ApiResource;
 
 interface RequestInterface
 {
-	const SKYHUB_BASE_API_ENDPOINT = 'https://in.skyhub.com.br';
-	
+	const SKYHUB_BASE_API_ENDPOINT 	= 'https://in.skyhub.com.br';
+	const PAGE_PARAM_NAME 			= 'page';
+	const PER_PAGE_PARAM_NAME 		= 'per_page';
+
 	/**
 	 * Returns an API endpoint URL
 	 * @return [type] [description]
@@ -39,7 +41,7 @@ interface RequestInterface
 	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
 	 * @return Array|ApiResourceInterface Returns array of ApiResourceInterface instances or a ApiResourceInterface instance only
 	 */
-	public function get($code = null);
+	public function get($code = null, array $params = array());
 
 	/**
 	 * Sends a POST request
@@ -47,7 +49,7 @@ interface RequestInterface
 	 * @param  ApiResourceInterface $resource The resource to be sent
 	 * @return void
 	 */
-	public function post(ApiResourceInterface $resource);
+	public function post(ApiResource $resource);
 
 	/**
 	 * Sends a PUT request
@@ -64,4 +66,14 @@ interface RequestInterface
 	 * @return void
 	 */
 	public function delete($code);
+
+	/**
+	 * Converts a response from api to a resource object
+	 * 
+	 * @param  mixed $response JSON response
+	 * @return ApiResourceInterface
+	 */
+	public function responseToResources(\Httpful\Response $response);
+
+	public function generateUrl($path = null, array $params = array());
 }
