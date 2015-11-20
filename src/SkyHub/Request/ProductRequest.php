@@ -34,7 +34,11 @@ class ProductRequest extends Request
 
 	public function get($code = null, array $params = array())
 	{
+        if ($code instanceof $this->resourceClassName) {
+            $code = $code->code;
+        }
 
+        return parent::get($code, $params);
 	}
 
     public function post(ApiResource $resource)
