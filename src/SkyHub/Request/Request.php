@@ -28,41 +28,57 @@ use Httpful\Request as HttpfulRequest;
 abstract class Request implements RequestInterface
 {
     /**
+     * Auth info (for X-User-Email and X-User-Token headers)
+     * 
      * @var \GlauberPortella\SkyHub\Security\Auth
      */
     protected $auth;
 
 	/**
+     * Pagination page param
+     * 
 	 * @var integer
 	 */
 	protected $page = 1;
 
 	/**
+     * Pagination per page param
+     * 
 	 * @var integer
 	 */
 	protected $perPage = 30;
 
     /**
      * Must be set for every child to the complete classname (with namespace) for the resource
+     * 
      * @var string
      */
     protected $resourceClassName;
 
     /**
      * Request template
+     * 
      * @var \Httpful\Request A requet template
      */
     private $requestTemplate;
 
+    /**
+     * Child must return the specific endpoint
+     * 
+     * @return string
+     */
     abstract public function endpoint();
-    abstract public function post(ApiResource $resource);
-    abstract public function put($code);
-    abstract public function delete($code);
 
+    /**
+     * Construt a Request
+     * 
+     * @param Auth $auth SkyHub Auth information to send on headers
+     */
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
 
+        // creates a request template, every request must have the auth headers
         $this->requestTemplate = HttpfulRequest::init()
             ->expectsJson()
             ->addHeader('X-User-Email', $this->auth->getEmail())
@@ -72,14 +88,86 @@ abstract class Request implements RequestInterface
         HttpfulRequest::ini($this->requestTemplate);
     }
 
+    /**
+     * Gets a resource
+     * 
+     * @param  mixed $code   String or resource instance
+     * @param  array  $params Extra params to add to request
+     * @return ApiResourceInterface An ApiResourceInterface concrete object array if no $code is informed or a single resource if $code is informed
+     */
     public function get($code = null, array $params = array())
     {
+        if ($code instanceof $this->resourceClassName) {
+            $code = $code->code;
+        }
+
         $url = $this->generateUrl($code, $params);
-        $response = HttpfulRequest::get($url)->send();
+        $response = \Httpful\Request::get($url)->send();
         $resources = $this->responseToResources($response);
+
         return $resources;
     }
 
+    /**
+     * Saves a Resource
+     * 
+     * @param  ApiResource $resource
+     * @return \Httpful\Response
+     */
+    public function post(ApiResource $resource)
+    {
+        $url = $this->endpoint();
+        $response = \Httpful\Request::post($url)
+            ->body($this->createPostBody($resource))
+            ->sendsJson()
+            ->send();
+        return $response;
+    }
+
+    /**
+     * Updates a Resource
+     * 
+     * @param  mixed      $code     String code, or a ApiResourceInterface object with code field
+     * @param  ApiResource $resource
+     * @return \Httpful\Response
+     */
+    public function put($code, ApiResource $resource)
+    {
+        if ($code instanceof $this->resourceClassName) {
+            $code = $code->code;
+        }
+
+        $url = $this->generateUrl($code);
+        $response = \Httpful\Request::put($url)
+            ->body($this->createPutBody($resource))
+            ->sendsJson()
+            ->send();
+        return $response;
+    }
+
+    /**
+     * Deletes a Resource
+     * 
+     * @param  mixed $code String code or the ApiResourceInterface instance
+     * @return \Httpful\Response
+     */
+    public function delete($code)
+    {
+        if ($code instanceof $this->resourceClassName) {
+            $code = $code->code;
+        }
+
+        $url = $this->generateUrl($code);
+        $response = \Httpful\Request::delete($url);
+        return $response;
+    }
+
+    /**
+     * Transform a Response to a ApiResourceInterface
+     * 
+     * @param  \Httpful\Response $response
+     * @return ApiResourceInterface array
+     */
     public function responseToResources(\Httpful\Response $response)
     {
         $resources = null;
@@ -103,6 +191,13 @@ abstract class Request implements RequestInterface
         return $resources;
     }
 
+    /**
+     * Generates a URL with or without path and params
+     * 
+     * @param  string $path
+     * @param  array  $params
+     * @return string
+     */
     public function generateUrl($path = null, array $params = array())
     {
         $url = $this->endpoint();
@@ -162,5 +257,27 @@ abstract class Request implements RequestInterface
         $this->perPage = $perPage;
 
         return $this;
+    }
+
+    /**
+     * Customize, if needed, the post body to send
+     * 
+     * @param  ApiResource $resource
+     * @return json encoded
+     */
+    protected function createPostBody(ApiResource $resource)
+    {
+        return json_encode($resource);
+    }
+
+    /**
+     * Customize, if needed, the put body to send
+     * 
+     * @param  ApiResource $resource
+     * @return json encoded
+     */
+    protected function createPutBody(ApiResource $resource)
+    {
+        return json_encode($resource);
     }
 }

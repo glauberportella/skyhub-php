@@ -25,25 +25,19 @@ use GlauberPortella\SkyHub\Resource\ApiResource;
 
 class CategoryRequest extends Request
 {
-    protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Category';
+    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Category';
 
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/categories';
     }
 
-    public function post(ApiResource $resource)
+    protected function createPostBody(ApiResource $resource)
     {
+        $body = new \StdClass;
 
-    }
-
-    public function put($code)
-    {
-
-    }
-    
-    public function delete($code)
-    {
-
+        $body->category = $resource;
+        
+        return json_encode($body);
     }
 }

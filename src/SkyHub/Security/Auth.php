@@ -33,6 +33,12 @@ class Auth
 	 */
 	protected $token;
 
+    public function __construct($email = null, $token = null)
+    {
+        $this->email = $email;
+        $this->token = $token;
+    }
+
     /**
      * Gets the value of email.
      *

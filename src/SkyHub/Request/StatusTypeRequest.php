@@ -25,30 +25,10 @@ use GlauberPortella\SkyHub\Resource\ApiResource;
 
 class StatusTypeRequest extends Request
 {
-    protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Attribute';
+    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Attribute';
 
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/status_types';
-    }
-
-	public function get($code = null, array $params = array())
-	{
-
-	}
-
-    public function post(ApiResource $resource)
-    {
-
-    }
-
-    public function put($code)
-    {
-
-    }
-    
-    public function delete($code)
-    {
-
     }
 }

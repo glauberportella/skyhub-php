@@ -18,27 +18,44 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('GlauberPortella\SkyHub\Resource\Attribute', $classname);
 	}
 
-	public function testConcreteRequestMustBeInstantiated()
+	public function testConcreteRequestMustBeInstantiatedFromResource()
 	{
-		// attributes
 		$attribute = new \GlauberPortella\SkyHub\Resource\Attribute;
-		$request = \GlauberPortella\SkyHub\Request\RequestFactory::create($this->auth)->forResource($attribute);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Attribute', $request);
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromResource($attribute, $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\AttributeRequest', $request);
 
 		$category = new \GlauberPortella\SkyHub\Resource\Category;
-		$request = \GlauberPortella\SkyHub\Request\RequestFactory::create($this->auth)->forResource($category);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Category', $request);
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromResource($category, $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\CategoryRequest', $request);
 
 		$order = new \GlauberPortella\SkyHub\Resource\Order;
-		$request = \GlauberPortella\SkyHub\Request\RequestFactory::create($this->auth)->forResource($order);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Order', $request);
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromResource($order, $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\OrderRequest', $request);
 
 		$orderStatus = new \GlauberPortella\SkyHub\Resource\OrderStatus;
-		$request = \GlauberPortella\SkyHub\Request\RequestFactory::create($this->auth)->forResource($orderStatus);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\OrderStatus', $request);
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromResource($orderStatus, $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\OrderStatusRequest', $request);
 
 		$product = new \GlauberPortella\SkyHub\Resource\Product;
-		$request = \GlauberPortella\SkyHub\Request\RequestFactory::create($this->auth)->forResource($product);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Product', $request);
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromResource($product, $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\ProductRequest', $request);
+	}
+
+	public function testConcreteRequestMustBeInstantiatedFromClassname()
+	{
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromClassName('\GlauberPortella\SkyHub\Request\AttributeRequest', $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\AttributeRequest', $request);
+
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromClassName('\GlauberPortella\SkyHub\Request\CategoryRequest', $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\CategoryRequest', $request);
+
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromClassName('\GlauberPortella\SkyHub\Request\OrderRequest', $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\OrderRequest', $request);
+
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromClassName('\GlauberPortella\SkyHub\Request\OrderStatusRequest', $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\OrderStatusRequest', $request);
+
+		$request = \GlauberPortella\SkyHub\Request\RequestFactory::fromClassName('\GlauberPortella\SkyHub\Request\ProductRequest', $this->auth);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\ProductRequest', $request);
 	}
 }

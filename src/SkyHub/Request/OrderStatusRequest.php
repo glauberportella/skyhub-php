@@ -23,12 +23,12 @@ namespace GlauberPortella\SkyHub\Request;
 
 use GlauberPortella\SkyHub\Resource\ApiResource;
 
-class ProductRequest extends Request
+class OrderStatusRequest extends Request
 {
-    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Attribute';
+    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\OrderStatus';
 
     public function endpoint()
     {
-        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/products';
+        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/order_status';
     }
 }

@@ -28,25 +28,10 @@ use Httpful\Request as HttpfulRequest;
 
 class AttributeRequest extends Request
 {
-    protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Attribute';
+    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Attribute';
 
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/attributes';
-    }
-
-    public function post(ApiResource $resource)
-    {
-
-    }
-
-    public function put($code)
-    {
-
-    }
-
-    public function delete($code)
-    {
-
     }
 }

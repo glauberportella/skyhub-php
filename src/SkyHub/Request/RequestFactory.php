@@ -7,31 +7,34 @@ use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
 
 class RequestFactory
 {
-	/**
-	 * @var \GlauberPortella\SkyHub\Security\Auth
-	 */
-	protected $auth;
+	private static $map = array(
+		'\GlauberPortella\SkyHub\Resource\Attribute' 	=> '\GlauberPortella\SkyHub\Request\AttributeRequest',
+		'\GlauberPortella\SkyHub\Resource\Category' 	=> '\GlauberPortella\SkyHub\Request\CategoryRequest',
+		'\GlauberPortella\SkyHub\Resource\Order' 		=> '\GlauberPortella\SkyHub\Request\OrderRequest',
+		'\GlauberPortella\SkyHub\Resource\OrderStatus' 	=> '\GlauberPortella\SkyHub\Request\OrderStatusRequest',
+		'\GlauberPortella\SkyHub\Resource\Product' 		=> '\GlauberPortella\SkyHub\Request\ProductRequest',
 
-	/**
-	 * @var RequestFactory instance
-	 */
-	static protected $factory;
+		'GlauberPortella\SkyHub\Resource\Attribute' 	=> '\GlauberPortella\SkyHub\Request\AttributeRequest',
+		'GlauberPortella\SkyHub\Resource\Category' 		=> '\GlauberPortella\SkyHub\Request\CategoryRequest',
+		'GlauberPortella\SkyHub\Resource\Order' 		=> '\GlauberPortella\SkyHub\Request\OrderRequest',
+		'GlauberPortella\SkyHub\Resource\OrderStatus' 	=> '\GlauberPortella\SkyHub\Request\OrderStatusRequest',
+		'GlauberPortella\SkyHub\Resource\Product' 		=> '\GlauberPortella\SkyHub\Request\ProductRequest',
 
-	private function __construct(Auth $auth)
+		'Attribute' 	=> '\GlauberPortella\SkyHub\Request\AttributeRequest',
+		'Category' 		=> '\GlauberPortella\SkyHub\Request\CategoryRequest',
+		'Order' 		=> '\GlauberPortella\SkyHub\Request\OrderRequest',
+		'OrderStatus' 	=> '\GlauberPortella\SkyHub\Request\OrderStatusRequest',
+		'Product' 		=> '\GlauberPortella\SkyHub\Request\ProductRequest',
+	);
+
+	static public function fromClassName($className, Auth $auth)
 	{
-		$this->auth = $auth;
+		return new $className($auth);
 	}
 
-	static public function create(Auth $auth)
+	static public function fromResource(ApiResourceInterface $resource, Auth $auth)
 	{
-		self::$factory = new RequestFactory($auth);
-		return self::$factory;
+		$resourceClassname = get_class($resource);
+		return self::fromClassName(self::$map[$resourceClassname], $auth);
 	}
-
-	public function forResource(ApiResourceInterface $resource)
-	{
-		$requestClassname = get_class($resource);
-		return new $requestClassname($this->auth);
-	}
-
 }

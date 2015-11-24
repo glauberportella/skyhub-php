@@ -25,35 +25,11 @@ use GlauberPortella\SkyHub\Resource\ApiResource;
 
 class OrderRequest extends Request
 {
-	protected $resourceClassName = '\GlauberPortella\SkuHub\Resource\Attribute';
+	protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Attribute';
 
 	public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/orders';
-    }
-
-	public function get($code = null, array $params = array())
-	{
-		if ($code instanceof $this->resourceClassName) {
-			$code = $code->code;
-		}
-
-		return parent::get($code, $params);
-	}
-
-    public function post(ApiResource $resource)
-    {
-
-    }
-
-    public function put($code)
-    {
-
-    }
-    
-    public function delete($code)
-    {
-
     }
 
 	public function notSynced()
