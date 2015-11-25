@@ -5,7 +5,7 @@ namespace Tests\Unit\Integration\Products;
 use Tests\Integration\IntegrationTestInterface;
 use GlauberPortella\SkyHub\Resource\Category;
 
-class CategoryTest extends \PHPUnit_Framework_TestCase
+class AttributeTest extends \PHPUnit_Framework_TestCase
 {
 	private $auth;
 	private $request;
@@ -13,22 +13,22 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->auth = new \GlauberPortella\SkyHub\Security\Auth(IntegrationTestInterface::USER_EMAIL, IntegrationTestInterface::USER_TOKEN);
-		$this->request = new \GlauberPortella\SkyHub\Request\CategoryRequest($this->auth);
+		$this->request = new \GlauberPortella\SkyHub\Request\AttributeRequest($this->auth);
 	}
 
 	public function testGetRequestSuccessfullyInstantiated()
 	{
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\CategoryRequest', $this->request);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\AttributeRequest', $this->request);
 	}
 
-	public function testGet()
-	{
-		$resources = $this->request->get();
-		$this->assertTrue(is_array($resources));
-		$this->assertNotEmpty($resources);
+	// public function testGet()
+	// {
+	// 	$resources = $this->request->get();
+	// 	$this->assertTrue(is_array($resources));
+	// 	$this->assertNotEmpty($resources);
 
-		return count($resources);
-	}
+	// 	return count($resources);
+	// }
 
 	// public function testPost()
 	// {
