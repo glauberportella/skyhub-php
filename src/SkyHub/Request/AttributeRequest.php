@@ -34,4 +34,16 @@ class AttributeRequest extends Request
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/attributes';
     }
+
+    /**
+     * Not yet supported on SkyHub API
+     * 
+     * @param  mixed $code
+     * @return null
+     */
+    public function delete($code)
+    {
+        // no support on SkyHub API
+        return null;
+    }
 }

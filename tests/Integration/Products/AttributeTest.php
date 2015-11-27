@@ -3,7 +3,7 @@
 namespace Tests\Unit\Integration\Products;
 
 use Tests\Integration\IntegrationTestInterface;
-use GlauberPortella\SkyHub\Resource\Category;
+use GlauberPortella\SkyHub\Resource\Attribute;
 
 class AttributeTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,75 +21,60 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\AttributeRequest', $this->request);
 	}
 
-	// public function testGet()
-	// {
-	// 	$resources = $this->request->get();
-	// 	$this->assertTrue(is_array($resources));
-	// 	$this->assertNotEmpty($resources);
+	public function testPost()
+	{
+	 	$name = 'CatTest001';
 
-	// 	return count($resources);
-	// }
+	 	$resource = new Attribute();
+	 	$resource->name = $name;
+	 	$resource->label = "Test attribute skyhub-php library";
+	 	$this->request->post($resource);
 
-	// public function testPost()
-	// {
-	// 	$code = 'CatTest001';
+	 	$resource = $this->request->get($name);
+	 	$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Attribute', $resource);
+	 	return array('code' => $code, 'label' => $name);
+	}
 
-	// 	$resource = new Category();
-	// 	$resource->code = $code;
-	// 	$resource->name = "Test category skyhub-php library";
-	// 	$this->request->post($resource);
+	/**
+	 * @depends testPost
+	 */
+	public function testPut(array $resourceData)
+	{
+		$nameExpected = $resourceData['name'];
+		$labelExpected = $resourceData['label'];
 
-	// 	$resources = $this->request->get();
-	// 	$this->assertEquals(1, count($resources));
+		$resource = $this->request->get($nameExpected);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Attribute', $resource);
 
-	// 	return array('code' => $code, 'name' => $name);
-	// }
+		$this->assertEquals($nameExpected, $resource->name);
+		$this->assertEquals($labelExpected, $resource->label);
 
-	// /**
-	//  * @depends testPost
-	//  */
-	// public function testPut(array $resourceData)
-	// {
-	// 	$codeExpected = $resourceData['code'];
-	// 	$nameExpected = $resourceData['name'];
+		$updatedNameExpected = 'Test attribute skyhub-php library updated';
+		$resource->name = $updatedNameExpected;
+		$this->request->put($resource);
 
-	// 	$resource = $this->request->get($codeExpected);
-	// 	$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Category', $resource);
+		$updated = $this->request->get($nameExpected);
+		$this->assertEquals($nameExpected, $resource->code);
+		$this->assertEquals($updatedNameExpected, $resource->nome);
 
-	// 	$this->assertEquals($codeExpected, $resource->code);
-	// 	$this->assertEquals($nameExpected, $resource->nome);
+		return $resourceData;
+	}
 
-	// 	$updatedNameExpected = 'Test category skyhub-php library updated';
-	// 	$resource->name = $updatedNameExpected;
-	// 	$this->request->put($resource);
+	/**
+	 * @depends testGet
+	 * @depends testPut
+	 */
+	public function testDelete($countResources, $resourceData)
+	{
+		$nameExpected = $resourceData['name'];
+		$labelExpected = $resourceData['label'];
 
-	// 	$updated = $this->request->get($codeExpected);
-	// 	$this->assertEquals($codeExpected, $resource->code);
-	// 	$this->assertEquals($updatedNameExpected, $resource->nome);
+		$resource = $this->request->get($nameExpected);
+		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Attribute', $resource);
 
-	// 	return $resourceData;
-	// }
+		$this->assertEquals($nameExpected, $resource->code);
+		$this->assertEquals($labelExpected, $resource->nome);
 
-	// /**
-	//  * @depends testGet
-	//  * @depends testPut
-	//  */
-	// public function testDelete($countResources, $resourceData)
-	// {
-	// 	$codeExpected = $resourceData['code'];
-	// 	$nameExpected = $resourceData['name'];
-
-	// 	$resource = $this->request->get($codeExpected);
-	// 	$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Category', $resource);
-
-	// 	$this->assertEquals($codeExpected, $resource->code);
-	// 	$this->assertEquals($nameExpected, $resource->nome);
-
-	// 	$this->request->delete($resource);
-
-	// 	// test $newCount < $countResources
-	// 	$resources = $this->request->get();
-	// 	$newCount = count($resources);
-	// 	$this->assertLessThan($countResources, $newCount);
-	// }
+		$this->request->delete($resource);
+	}
 }

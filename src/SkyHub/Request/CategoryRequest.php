@@ -40,4 +40,27 @@ class CategoryRequest extends Request
         
         return json_encode($body);
     }
+
+    /**
+     * Not yet supported on SkyHub API
+     * 
+     * @param  ApiResource $resource
+     * @return null
+     */
+    public function post(ApiResource $resource)
+    {
+        return null;
+    }
+
+    /**
+     * Not yet supported on SkyHub API
+     * 
+     * @param  mixed $code
+     * @return null
+     */
+    public function delete($code)
+    {
+        // no support on SkyHub API
+        return null;
+    }
 }
