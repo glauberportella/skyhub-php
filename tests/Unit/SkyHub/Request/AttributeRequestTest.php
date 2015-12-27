@@ -8,12 +8,12 @@ class AttributeRequestTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->auth = new \GlauberPortella\SkyHub\Security\Auth();
+		$this->auth = new \SkyHub\Security\Auth();
 	}
 
 	public function testCanInstantiateAttributeRequestSuccessfully()
 	{
-		$actual = new \GlauberPortella\SkyHub\Request\AttributeRequest($this->auth);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\AttributeRequest', $actual);
+		$actual = new \SkyHub\Request\AttributeRequest($this->auth);
+		$this->assertInstanceOf('\SkyHub\Request\AttributeRequest', $actual);
 	}
 }

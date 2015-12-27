@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\SkyHub\Request;
 
-use \GlauberPortella\SkyHub\Request\Request;
-use \GlauberPortella\SkyHub\Resource\ApiResource;
+use \SkyHub\Request\Request;
+use \SkyHub\Resource\ApiResource;
 
 class RequestConcrete extends Request {
-	protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Product';
+	protected $resourceClassName = '\SkyHub\Resource\Product';
 	public function endpoint()
 	{
 		return 'http://localhost:8000/resources';
@@ -23,24 +23,24 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->auth = new \GlauberPortella\SkyHub\Security\Auth();
+		$this->auth = new \SkyHub\Security\Auth();
 	}
 
 	public function testApiSkyHubEndpointSuccessfully()
 	{
-		$attributes = new \GlauberPortella\SkyHub\Request\AttributeRequest($this->auth);
+		$attributes = new \SkyHub\Request\AttributeRequest($this->auth);
 		$this->assertEquals('https://in.skyhub.com.br/attributes', $attributes->endpoint());
 
-		$categories = new \GlauberPortella\SkyHub\Request\CategoryRequest($this->auth);
+		$categories = new \SkyHub\Request\CategoryRequest($this->auth);
 		$this->assertEquals('https://in.skyhub.com.br/categories', $categories->endpoint());
 
-		$orders = new \GlauberPortella\SkyHub\Request\OrderRequest($this->auth);
+		$orders = new \SkyHub\Request\OrderRequest($this->auth);
 		$this->assertEquals('https://in.skyhub.com.br/orders', $orders->endpoint());
 
-		$products = new \GlauberPortella\SkyHub\Request\ProductRequest($this->auth);
+		$products = new \SkyHub\Request\ProductRequest($this->auth);
 		$this->assertEquals('https://in.skyhub.com.br/products', $products->endpoint());
 
-		$statusTypes = new \GlauberPortella\SkyHub\Request\StatusTypeRequest($this->auth);
+		$statusTypes = new \SkyHub\Request\StatusTypeRequest($this->auth);
 		$this->assertEquals('https://in.skyhub.com.br/status_types', $statusTypes->endpoint());
 	}
 
@@ -75,7 +75,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		)));
 
 		$resource = $request->responseToResources($mockResponse);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Product', $resource);
+		$this->assertInstanceOf('\SkyHub\Resource\Product', $resource);
 
 		$this->assertEquals('Val1', $resource->property1);
 		$this->assertEquals('Val2', $resource->property2);

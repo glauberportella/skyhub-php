@@ -1,30 +1,30 @@
 <?php
 
-namespace GlauberPortella\SkyHub\Request;
+namespace SkyHub\Request;
 
-use GlauberPortella\SkyHub\Security\Auth;
-use GlauberPortella\SkyHub\Resource\ApiResourceInterface;
+use SkyHub\Security\Auth;
+use SkyHub\Resource\ApiResourceInterface;
 
 class RequestFactory
 {
 	private static $map = array(
-		'\GlauberPortella\SkyHub\Resource\Attribute' 	=> '\GlauberPortella\SkyHub\Request\AttributeRequest',
-		'\GlauberPortella\SkyHub\Resource\Category' 	=> '\GlauberPortella\SkyHub\Request\CategoryRequest',
-		'\GlauberPortella\SkyHub\Resource\Order' 		=> '\GlauberPortella\SkyHub\Request\OrderRequest',
-		'\GlauberPortella\SkyHub\Resource\OrderStatus' 	=> '\GlauberPortella\SkyHub\Request\OrderStatusRequest',
-		'\GlauberPortella\SkyHub\Resource\Product' 		=> '\GlauberPortella\SkyHub\Request\ProductRequest',
+		'\SkyHub\Resource\Attribute' 	=> '\SkyHub\Request\AttributeRequest',
+		'\SkyHub\Resource\Category' 	=> '\SkyHub\Request\CategoryRequest',
+		'\SkyHub\Resource\Order' 		=> '\SkyHub\Request\OrderRequest',
+		'\SkyHub\Resource\OrderStatus' 	=> '\SkyHub\Request\OrderStatusRequest',
+		'\SkyHub\Resource\Product' 		=> '\SkyHub\Request\ProductRequest',
 
-		'GlauberPortella\SkyHub\Resource\Attribute' 	=> '\GlauberPortella\SkyHub\Request\AttributeRequest',
-		'GlauberPortella\SkyHub\Resource\Category' 		=> '\GlauberPortella\SkyHub\Request\CategoryRequest',
-		'GlauberPortella\SkyHub\Resource\Order' 		=> '\GlauberPortella\SkyHub\Request\OrderRequest',
-		'GlauberPortella\SkyHub\Resource\OrderStatus' 	=> '\GlauberPortella\SkyHub\Request\OrderStatusRequest',
-		'GlauberPortella\SkyHub\Resource\Product' 		=> '\GlauberPortella\SkyHub\Request\ProductRequest',
+		'SkyHub\Resource\Attribute' 	=> '\SkyHub\Request\AttributeRequest',
+		'SkyHub\Resource\Category' 		=> '\SkyHub\Request\CategoryRequest',
+		'SkyHub\Resource\Order' 		=> '\SkyHub\Request\OrderRequest',
+		'SkyHub\Resource\OrderStatus' 	=> '\SkyHub\Request\OrderStatusRequest',
+		'SkyHub\Resource\Product' 		=> '\SkyHub\Request\ProductRequest',
 
-		'Attribute' 	=> '\GlauberPortella\SkyHub\Request\AttributeRequest',
-		'Category' 		=> '\GlauberPortella\SkyHub\Request\CategoryRequest',
-		'Order' 		=> '\GlauberPortella\SkyHub\Request\OrderRequest',
-		'OrderStatus' 	=> '\GlauberPortella\SkyHub\Request\OrderStatusRequest',
-		'Product' 		=> '\GlauberPortella\SkyHub\Request\ProductRequest',
+		'Attribute' 	=> '\SkyHub\Request\AttributeRequest',
+		'Category' 		=> '\SkyHub\Request\CategoryRequest',
+		'Order' 		=> '\SkyHub\Request\OrderRequest',
+		'OrderStatus' 	=> '\SkyHub\Request\OrderStatusRequest',
+		'Product' 		=> '\SkyHub\Request\ProductRequest',
 	);
 
 	static public function fromClassName($className, Auth $auth)

@@ -6,7 +6,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 {
 	public function testCanInstantiateCategoryResourceSuccessfully()
 	{
-		$actual = new \GlauberPortella\SkyHub\Resource\Category();
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Category', $actual);
+		$actual = new \SkyHub\Resource\Category();
+		$this->assertInstanceOf('\SkyHub\Resource\Category', $actual);
 	}
 }

@@ -19,16 +19,16 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace GlauberPortella\SkyHub\Request;
+namespace SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResource;
-use GlauberPortella\SkyHub\Resource\Attribute;
+use SkyHub\Resource\ApiResource;
+use SkyHub\Resource\Attribute;
 
 use Httpful\Request as HttpfulRequest;
 
 class AttributeRequest extends Request
 {
-    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\Attribute';
+    protected $resourceClassName = '\SkyHub\Resource\Attribute';
 
     public function endpoint()
     {

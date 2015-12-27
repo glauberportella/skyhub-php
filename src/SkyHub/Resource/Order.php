@@ -19,7 +19,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace GlauberPortella\SkyHub\Resource;
+namespace SkyHub\Resource;
 
 class Order extends ApiResource
 {

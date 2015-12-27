@@ -19,10 +19,10 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace GlauberPortella\SkyHub\Request;
+namespace SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResource;
-use GlauberPortella\SkyHub\Security\Auth;
+use SkyHub\Resource\ApiResource;
+use SkyHub\Security\Auth;
 use Httpful\Request as HttpfulRequest;
 
 abstract class Request implements RequestInterface
@@ -30,7 +30,7 @@ abstract class Request implements RequestInterface
     /**
      * Auth info (for X-User-Email and X-User-Token headers)
      * 
-     * @var \GlauberPortella\SkyHub\Security\Auth
+     * @var \SkyHub\Security\Auth
      */
     protected $auth;
 

@@ -19,9 +19,16 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace GlauberPortella\SkyHub\Exception;
+namespace SkyHub\Exception;
 
-class SkyHubException extends \Exception
+class SkyHubException extends \Exception implements \JsonSerializable
 {
-	
+	public function jsonSerialize()
+	{
+		return array(
+			'exception' => get_class($this),
+			'code' 		=> $this->code,
+			'message' 	=> $this->message,
+		);
+	}
 }

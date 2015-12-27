@@ -8,12 +8,12 @@ class StatusTypeRequestTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->auth = new \GlauberPortella\SkyHub\Security\Auth();
+		$this->auth = new \SkyHub\Security\Auth();
 	}
 	
 	public function testCanInstantiateOrderStatusRequestSuccessfully()
 	{
-		$actual = new \GlauberPortella\SkyHub\Request\StatusTypeRequest($this->auth);
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\StatusTypeRequest', $actual);
+		$actual = new \SkyHub\Request\StatusTypeRequest($this->auth);
+		$this->assertInstanceOf('\SkyHub\Request\StatusTypeRequest', $actual);
 	}
 }

@@ -6,7 +6,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 {
 	public function testCanInstantiateAttributeResourceSuccessfully()
 	{
-		$actual = new \GlauberPortella\SkyHub\Resource\Attribute();
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Attribute', $actual);
+		$actual = new \SkyHub\Resource\Attribute();
+		$this->assertInstanceOf('\SkyHub\Resource\Attribute', $actual);
 	}
 }

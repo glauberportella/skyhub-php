@@ -3,7 +3,7 @@
 namespace Tests\Unit\Integration\Products;
 
 use Tests\Integration\IntegrationTestInterface;
-use GlauberPortella\SkyHub\Resource\Category;
+use SkyHub\Resource\Category;
 
 class CategoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,13 +12,13 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->auth = new \GlauberPortella\SkyHub\Security\Auth(IntegrationTestInterface::USER_EMAIL, IntegrationTestInterface::USER_TOKEN);
-		$this->request = new \GlauberPortella\SkyHub\Request\CategoryRequest($this->auth);
+		$this->auth = new \SkyHub\Security\Auth(IntegrationTestInterface::USER_EMAIL, IntegrationTestInterface::USER_TOKEN);
+		$this->request = new \SkyHub\Request\CategoryRequest($this->auth);
 	}
 
 	public function testGetRequestSuccessfullyInstantiated()
 	{
-		$this->assertInstanceOf('\GlauberPortella\SkyHub\Request\CategoryRequest', $this->request);
+		$this->assertInstanceOf('\SkyHub\Request\CategoryRequest', $this->request);
 	}
 
 	public function testGet()
@@ -54,7 +54,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 	// 	$nameExpected = $resourceData['name'];
 
 	// 	$resource = $this->request->get($codeExpected);
-	// 	$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Category', $resource);
+	// 	$this->assertInstanceOf('\SkyHub\Resource\Category', $resource);
 
 	// 	$this->assertEquals($codeExpected, $resource->code);
 	// 	$this->assertEquals($nameExpected, $resource->nome);
@@ -80,7 +80,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 	// 	$nameExpected = $resourceData['name'];
 
 	// 	$resource = $this->request->get($codeExpected);
-	// 	$this->assertInstanceOf('\GlauberPortella\SkyHub\Resource\Category', $resource);
+	// 	$this->assertInstanceOf('\SkyHub\Resource\Category', $resource);
 
 	// 	$this->assertEquals($codeExpected, $resource->code);
 	// 	$this->assertEquals($nameExpected, $resource->nome);

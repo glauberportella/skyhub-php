@@ -1,6 +1,6 @@
 <?php
 
-namespace GlauberPortella\SkyHub\Resource;
+namespace SkyHub\Resource;
 
 interface ApiResourceInterface
 {

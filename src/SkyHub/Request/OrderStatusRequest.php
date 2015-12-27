@@ -19,13 +19,13 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace GlauberPortella\SkyHub\Request;
+namespace SkyHub\Request;
 
-use GlauberPortella\SkyHub\Resource\ApiResource;
+use SkyHub\Resource\ApiResource;
 
 class OrderStatusRequest extends Request
 {
-    protected $resourceClassName = '\GlauberPortella\SkyHub\Resource\OrderStatus';
+    protected $resourceClassName = '\SkyHub\Resource\OrderStatus';
 
     public function endpoint()
     {

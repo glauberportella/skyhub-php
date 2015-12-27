@@ -3,7 +3,7 @@
 namespace Tests\Unit\SkyHub\Resource;
 
 // Concrete for test
-class ApiResourceConcrete extends \GlauberPortella\SkyHub\Resource\ApiResource { }
+class ApiResourceConcrete extends \SkyHub\Resource\ApiResource { }
 
 class ApiResourceTest extends \PHPUnit_Framework_TestCase
 {
