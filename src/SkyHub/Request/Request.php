@@ -131,13 +131,11 @@ abstract class Request implements RequestInterface
      * @param  ApiResource $resource
      * @return \Httpful\Response
      */
-    public function put($code, ApiResource $resource)
+    public function put(ApiResource $resource)
     {
-        if ($code instanceof $this->resourceClassName) {
-            $code = $code->code;
-        }
+        $idField = $resource->getIdField();
 
-        $url = $this->generateUrl($code);
+        $url = $this->generateUrl($resource->{$idField});
         $response = \Httpful\Request::put($url)
             ->body($this->createPutBody($resource))
             ->sendsJson()

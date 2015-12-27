@@ -54,11 +54,10 @@ interface RequestInterface
 	/**
 	 * Sends a PUT request
 	 * 
-	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
 	 * @param  ApiResourceInterface object with the new data to save
 	 * @return ApiResourceInterface The updated resource
 	 */
-	public function put($code, ApiResource $resource);
+	public function put(ApiResource $resource);
 
 	/**
 	 * Sends a DELETE request

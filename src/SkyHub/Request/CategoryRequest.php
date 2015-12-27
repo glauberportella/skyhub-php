@@ -22,6 +22,7 @@
 namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
+use SkyHub\Exception\MethodNotAllowedException;
 
 class CategoryRequest extends Request
 {
@@ -32,35 +33,15 @@ class CategoryRequest extends Request
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/categories';
     }
 
-    protected function createPostBody(ApiResource $resource)
-    {
-        $body = new \StdClass;
-
-        $body->category = $resource;
-        
-        return json_encode($body);
-    }
-
-    /**
-     * Not yet supported on SkyHub API
-     * 
-     * @param  ApiResource $resource
-     * @return null
-     */
-    public function post(ApiResource $resource)
-    {
-        return null;
-    }
-
     /**
      * Not yet supported on SkyHub API
      * 
      * @param  mixed $code
-     * @return null
+     * @throws MethodNotAllowedException
      */
     public function delete($code)
     {
         // no support on SkyHub API
-        return null;
+        throw new MethodNotAllowedException();
     }
 }

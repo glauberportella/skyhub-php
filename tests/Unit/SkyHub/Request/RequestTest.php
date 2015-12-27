@@ -13,7 +13,7 @@ class RequestConcrete extends Request {
 	}
 	public function get($code = null, array $params = array()) {}
 	public function post(ApiResource $resource) {}
-    public function put($code, ApiResource $resource) {}
+    public function put(ApiResource $resource) {}
     public function delete($code) {}
 }
 

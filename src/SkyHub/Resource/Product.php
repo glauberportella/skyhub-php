@@ -23,5 +23,5 @@ namespace SkyHub\Resource;
 
 class Product extends ApiResource
 {
-	
+	protected $idField = 'sku';	
 }

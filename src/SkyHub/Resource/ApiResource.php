@@ -24,6 +24,13 @@ namespace SkyHub\Resource;
 abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 {
 	/**
+	 * Field name that represents the resource ID (primary key)
+	 * Defaults to code
+	 * @var string
+	 */
+	protected $idField = 'code';
+
+	/**
 	 * @var array
 	 */
 	protected $data;
@@ -51,5 +58,10 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 	public function jsonSerialize()
 	{
 		return $this->data;
+	}
+
+	public function getIdField()
+	{
+		return $this->idField;
 	}
 }

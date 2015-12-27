@@ -23,8 +23,10 @@ namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
 use SkyHub\Resource\Attribute;
+use SkyHub\Exception\MethodNotAllowedException;
 
 use Httpful\Request as HttpfulRequest;
+
 
 class AttributeRequest extends Request
 {
@@ -36,14 +38,20 @@ class AttributeRequest extends Request
     }
 
     /**
-     * Not yet supported on SkyHub API
-     * 
-     * @param  mixed $code
-     * @return null
+     * @throws MethodNotAllowedException
+     */
+    public function get($code = null, array $params = array())
+    {
+        // no support on SkyHub API
+        throw new MethodNotAllowedException();
+    }
+
+    /**
+     * @throws MethodNotAllowedException
      */
     public function delete($code)
     {
         // no support on SkyHub API
-        return null;
+        throw new MethodNotAllowedException();
     }
 }
