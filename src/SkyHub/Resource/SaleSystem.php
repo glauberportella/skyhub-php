@@ -19,29 +19,9 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Request;
+namespace SkyHub\Resource;
 
-use SkyHub\Resource\ApiResource;
-use SkyHub\Exception\MethodNotAllowedException;
-
-class ProductRequest extends Request
+class SaleSystem extends ApiResource
 {
-    protected $resourceClassName = '\SkyHub\Resource\Product';
-
-    public function endpoint()
-    {
-        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/products';
-    }
-
-    /**
-     * Not yet supported on SkyHub API
-     * 
-     * @param  mixed $code
-     * @throws MethodNotAllowedException
-     */
-    public function delete($code)
-    {
-        // no support on SkyHub API
-        throw new MethodNotAllowedException();
-    }
+	
 }

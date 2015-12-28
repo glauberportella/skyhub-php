@@ -23,6 +23,7 @@ namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
 use SkyHub\Security\Auth;
+use SkyHub\Exception\RequestException;
 use Httpful\Request as HttpfulRequest;
 
 abstract class Request implements RequestInterface
@@ -117,10 +118,27 @@ abstract class Request implements RequestInterface
     public function post(ApiResource $resource)
     {
         $url = $this->endpoint();
-        $response = \Httpful\Request::post($url)
-            ->body($this->createPostBody($resource))
-            ->sendsJson()
-            ->send();
+
+        $response = null;
+
+        // SkyHub API POST return no response or an empty response
+        // Httpful think it is an error so we catch the exception and proceed
+        // normally. 
+        // 
+        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
+        try {
+            $response = \Httpful\Request::post($url)
+                ->body($this->createPostBody($resource))
+                ->sendsJson()
+                ->send();
+        } catch (\Exception $e) {
+            if ($e->getMessage() == 'Unable to parse response as JSON') {
+                // keep working
+            } else {
+                throw new RequestException($e->getMessage(), $e->getCode());
+            }
+        }
+
         return $response;
     }
 

@@ -22,13 +22,67 @@
 namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
+use SkyHub\Exception\MethodNotAllowedException;
 
 class StatusTypeRequest extends Request
 {
-    protected $resourceClassName = '\SkyHub\Resource\Attribute';
+    protected $resourceClassName = '\SkyHub\Resource\StatusType';
 
     public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/status_types';
+    }
+
+    /**
+     * Transform a Response to a ApiResourceInterface
+     * 
+     * @override
+     * @param  \Httpful\Response $response
+     * @return ApiResourceInterface array
+     */
+    public function responseToResources(\Httpful\Response $response)
+    {
+        $resources = null;
+
+        if (is_array($response->body)) {
+            $o = new $this->resourceClassName;
+            $types = array();
+            foreach ($response->body as $data) {
+                $types[] = $data;
+            }
+            $o->types = $types;
+            $resources[] = $o;
+        } else {
+            $resources = new $this->resourceClassName;
+            foreach ($response->body as $prop => $val) {
+                $resources->$prop = $val;
+            }
+        }
+
+        return $resources;
+    }
+
+    public function post(ApiResource $resource)
+    {
+    	// no support on SkyHub API
+        throw new MethodNotAllowedException();
+    }
+
+    public function put(ApiResource $resource)
+    {
+    	// no support on SkyHub API
+        throw new MethodNotAllowedException();
+    }
+
+    /**
+     * Not yet supported on SkyHub API
+     * 
+     * @param  mixed $code
+     * @throws MethodNotAllowedException
+     */
+    public function delete($code)
+    {
+        // no support on SkyHub API
+        throw new MethodNotAllowedException();
     }
 }

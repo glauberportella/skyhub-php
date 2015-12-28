@@ -24,13 +24,54 @@ namespace SkyHub\Request;
 use SkyHub\Resource\ApiResource;
 use SkyHub\Exception\MethodNotAllowedException;
 
-class ProductRequest extends Request
+class SaleSystemRequest extends Request
 {
-    protected $resourceClassName = '\SkyHub\Resource\Product';
+    protected $resourceClassName = '\SkyHub\Resource\SaleSystem';
 
     public function endpoint()
     {
-        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/products';
+        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/sale_systems';
+    }
+
+    /**
+     * Transform a Response to a ApiResourceInterface
+     * 
+     * @override
+     * @param  \Httpful\Response $response
+     * @return ApiResourceInterface array
+     */
+    public function responseToResources(\Httpful\Response $response)
+    {
+        $resources = null;
+
+        if (is_array($response->body)) {
+            $o = new $this->resourceClassName;
+            $sytems = array();
+            foreach ($response->body as $data) {
+                $sytems[] = $data;
+            }
+            $o->sytems = $sytems;
+            $resources[] = $o;
+        } else {
+            $resources = new $this->resourceClassName;
+            foreach ($response->body as $prop => $val) {
+                $resources->$prop = $val;
+            }
+        }
+
+        return $resources;
+    }
+
+    public function post(ApiResource $resource)
+    {
+    	// no support on SkyHub API
+        throw new MethodNotAllowedException();
+    }
+
+    public function put(ApiResource $resource)
+    {
+    	// no support on SkyHub API
+        throw new MethodNotAllowedException();
     }
 
     /**
