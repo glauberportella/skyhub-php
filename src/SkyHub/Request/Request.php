@@ -180,7 +180,8 @@ abstract class Request implements RequestInterface
     public function delete($code)
     {
         if ($code instanceof $this->resourceClassName) {
-            $code = $code->code;
+            $idField = $code->getIdField();
+            $code = $code->{$idField};
         }
 
         $url = $this->generateUrl($code);
