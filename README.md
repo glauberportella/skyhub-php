@@ -6,4 +6,10 @@ The purpose of this lib is to create an abstracted layer to facilitate the use o
 
 **Actual stage**: Development - not yet functional
 
+# How to Install
+
+Install via composer:
+
+	composer require glauberportella/skyhub-php
+
 # Documentation
