@@ -6,11 +6,4 @@ The purpose of this lib is to create an abstracted layer to facilitate the use o
 
 **Actual stage**: Development - not yet functional
 
-#CURL test integration
-
-Data files in tests/data directory.
-
-## Category
-
-### POST
-    curl -X POST -d @tests/data/category.json https://in.skyhub.com.br/categories -H "Accpet: application/json" -H "Content-Type: application/json" -H "X-User-Email: glauberportella@gmail.com" -H "X-User-Token: ynaS6bsf6q5GE21zj7Ay"
+# Documentation
