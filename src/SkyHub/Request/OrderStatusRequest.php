@@ -29,6 +29,6 @@ class OrderStatusRequest extends Request
 
     public function endpoint()
     {
-        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/order_status';
+        return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/statuses';
     }
 }
