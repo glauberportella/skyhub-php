@@ -22,43 +22,152 @@
 namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
+use SkyHub\Exception\MethodNotAllowedException;
 
 class OrderRequest extends Request
 {
-	protected $resourceClassName = '\SkyHub\Resource\Attribute';
+	protected $resourceClassName = '\SkyHub\Resource\Order';
 
 	public function endpoint()
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/orders';
     }
 
-	public function notSynced()
-	{
+    /**
+     * Method not allowed
+     */
+    public function post(ApiResource $resource)
+    {
+        throw new MethodNotAllowedException();
+    }
 
+    /**
+     * Method not allowed
+     */
+    public function put(ApiResource $resource)
+    {
+        throw new MethodNotAllowedException();
+    }
+
+    /**
+     * Method not allowed
+     */
+    public function delete($code)
+    {
+        throw new MethodNotAllowedException();
+    }
+
+    public function exported(ApiResource $resource)
+    {
+    	if (!isset($resource->exported))
+    		return;
+    	
+    	$idField = $resource->getIdField();
+
+		$url = $this->generateUrl($resource->{$idField}.'/exported');
+
+        $response = null;
+
+        try {
+            $response = \Httpful\Request::put($url)
+                ->body(json_encode(array('exported' => $resource->exported)))
+                ->sendsJson()
+                ->send();
+        } catch (\Exception $e) {
+            if ($e->getMessage() == 'Unable to parse response as JSON') {
+                // keep working
+            } else {
+                throw new RequestException($e->getMessage(), $e->getCode());
+            }
+        }
+
+        return $response;
+    }
+
+	public function cancel(ApiResource $resource)
+	{
+		$idField = $resource->getIdField();
+
+		$url = $this->generateUrl($resource->{$idField}.'/cancel');
+
+        $response = null;
+
+        // SkyHub API POST return no response or an empty response
+        // Httpful think it is an error so we catch the exception and proceed
+        // normally. 
+        // 
+        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
+        try {
+            $response = \Httpful\Request::post($url)
+                ->body($this->createPostBody($resource))
+                ->sendsJson()
+                ->send();
+        } catch (\Exception $e) {
+            if ($e->getMessage() == 'Unable to parse response as JSON') {
+                // keep working
+            } else {
+                throw new RequestException($e->getMessage(), $e->getCode());
+            }
+        }
+
+        return $response;
 	}
 
-	public function exported()
+	public function delivery(ApiResource $resource)
 	{
+		$idField = $resource->getIdField();
 
+		$url = $this->generateUrl($resource->{$idField}.'/delivery');
+
+        $response = null;
+
+        // SkyHub API POST return no response or an empty response
+        // Httpful think it is an error so we catch the exception and proceed
+        // normally. 
+        // 
+        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
+        try {
+            $response = \Httpful\Request::post($url)
+                ->body($this->createPostBody($resource))
+                ->sendsJson()
+                ->send();
+        } catch (\Exception $e) {
+            if ($e->getMessage() == 'Unable to parse response as JSON') {
+                // keep working
+            } else {
+                throw new RequestException($e->getMessage(), $e->getCode());
+            }
+        }
+
+        return $response;
 	}
 
-	public function confirmed()
+	public function shipments(ApiResource $resource)
 	{
+		$idField = $resource->getIdField();
 
-	}
+		$url = $this->generateUrl($resource->{$idField}.'/shipments');
 
-	public function shipments($code)
-	{
+        $response = null;
 
-	}
+        // SkyHub API POST return no response or an empty response
+        // Httpful think it is an error so we catch the exception and proceed
+        // normally. 
+        // 
+        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
+        try {
+            $response = \Httpful\Request::post($url)
+                ->body($this->createPostBody($resource))
+                ->sendsJson()
+                ->send();
+        } catch (\Exception $e) {
+            if ($e->getMessage() == 'Unable to parse response as JSON') {
+                // keep working
+            } else {
+                throw new RequestException($e->getMessage(), $e->getCode());
+            }
+        }
 
-	public function delivery($code)
-	{
-
-	}
-
-	public function cancel($code)
-	{
-
+        return $response;
 	}
 }

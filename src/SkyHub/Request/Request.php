@@ -23,6 +23,8 @@ namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
 use SkyHub\Security\Auth;
+use SkyHub\Exception\SkyHubException;
+use SkyHub\Exception\NotFoundException;
 use SkyHub\Exception\RequestException;
 use Httpful\Request as HttpfulRequest;
 
@@ -104,6 +106,14 @@ abstract class Request implements RequestInterface
 
         $url = $this->generateUrl($code, $params);
         $response = \Httpful\Request::get($url)->send();
+        if (isset($response->body->error)) {
+            if (1 === preg_match('/não foi possível encontrar/i', $response->body->error)) {
+                throw new NotFoundException($response->body->error);
+            }
+
+            throw new SkyHubException($response->body->error);
+        }
+
         $resources = $this->responseToResources($response);
 
         return $resources;
