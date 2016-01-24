@@ -57,6 +57,13 @@ class OrderRequest extends Request
         throw new MethodNotAllowedException();
     }
 
+    public function getNotSynced()
+    {
+        return $this->get(null, array(
+            'filters' => array('sync_status' => array('NOT_SYNCED'))
+        ));
+    }
+
     public function exported(ApiResource $resource)
     {
     	if (!isset($resource->exported))
