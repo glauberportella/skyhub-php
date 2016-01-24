@@ -96,5 +96,9 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 		$this->request->put($resource);
 	}
 
-
+	public function testGetNotSynced()
+	{
+		$notSynced = $this->request->getNotSynced();
+		$this->assertTrue(is_array($notSynced) || $notSynced instanceof \SkyHub\Resource\Order, 'Resource is not an array or Order instance, maybe a SkyHub API invalid response on GET or there is no NOT_SYNCED orders.');
+	}
 }
