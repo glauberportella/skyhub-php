@@ -148,8 +148,7 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 		$resource->interest = 0;
 
 		try {
-			$request = new \SkyHub\Request\OrderRequest();
-			$request->createTest($resource);
+			$this->request->createTest($resource);
 		} catch (Exception $e) {
 			$this->fail('Request fail on OrderRequest::createTest()');
 		}
