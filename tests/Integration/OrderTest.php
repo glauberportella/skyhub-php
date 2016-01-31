@@ -101,4 +101,57 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 		$notSynced = $this->request->getNotSynced();
 		$this->assertTrue(is_array($notSynced) || $notSynced instanceof \SkyHub\Resource\Order, 'Resource is not an array or Order instance, maybe a SkyHub API invalid response on GET or there is no NOT_SYNCED orders.');
 	}
+
+	public function testCreateTest()
+	{
+		$resource = new \SkyHub\Resource\Order();
+		$resource->channel = "Submarino";
+		$resource->status = "pagamento_pendente";
+		$resource->items = array(
+			array("id" => 2, "qty" => 1),
+			array("id" => 1, "qty" => 1),
+		);
+		$resource->customer = array(
+		    "name" => "Glauber Portella",
+		    "email" => "glauberportella@gmail.com",
+		    "date_of_birth" => "1982-01-12",
+		    "gender" => "masculino",
+		    "vat_number" => "05771095613",
+		    "phones" => array('(31) 3433-5488', '(31) 99246-8610')
+		);
+		$resource->billing_address = array(
+			"street" => "Rua dos Alvarengas",
+			"number" => "40",
+			"detail" => "",
+			"neighborhood" => "Aarão Reis",
+			"city" => "Belo Horizonte",
+			"region" => "MG",
+			"country" => "Brasil",
+			"post_code" => "31814500"
+		);
+		$resource->shipping_address = array(
+			"street" => "Rua dos Alvarengas",
+			"number" => "40",
+			"detail" => "",
+			"neighborhood" => "Aarão Reis",
+			"city" => "Belo Horizonte",
+			"region" => "MG",
+			"country" => "Brasil",
+			"post_code" => "31814500"
+		);
+  		$resource->shipping_method = "correios";
+
+  		$estimatedDelivery = new \DateTime();
+		$estimatedDelivery->add(new \DateInterval('P15D'));
+		$resource->estimated_delivery = $estimatedDelivery->format('Y-m-d H:i:s');
+		$resource->shipping_cost = 17.50;
+		$resource->interest = 0;
+
+		try {
+			$request = new \SkyHub\Request\OrderRequest();
+			$request->createTest($resource);
+		} catch (Exception $e) {
+			$this->fail('Request fail on OrderRequest::createTest()');
+		}
+	}
 }
