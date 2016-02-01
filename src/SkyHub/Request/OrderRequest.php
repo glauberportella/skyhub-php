@@ -74,14 +74,14 @@ class OrderRequest extends Request
         ));
     }
 
-    public function aproval(ApiResource $resource)
+    public function approval(ApiResource $resource)
     {
         if (!isset($resource->status))
             return;
 
         $idField = $resource->getIdField();
 
-        $url = $this->generateUrl($resource->{$idField}.'/aproval');
+        $url = $this->generateUrl($resource->{$idField}.'/approval');
 
         $response = null;
 
