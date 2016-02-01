@@ -34,6 +34,16 @@ class OrderRequest extends Request
     }
 
     /**
+     * Create a test order on API
+     * @param  ApiResource $resource
+     * @return bool
+     */
+    public function createTest(ApiResource $resource)
+    {
+        return parent::post($resource);
+    }
+
+    /**
      * Method not allowed
      */
     public function post(ApiResource $resource)
@@ -62,6 +72,33 @@ class OrderRequest extends Request
         return $this->get(null, array(
             'filters' => array('sync_status' => array('NOT_SYNCED'))
         ));
+    }
+
+    public function aproval(ApiResource $resource)
+    {
+        if (!isset($resource->status))
+            return;
+
+        $idField = $resource->getIdField();
+
+        $url = $this->generateUrl($resource->{$idField}.'/aproval');
+
+        $response = null;
+
+        try {
+            $response = \Httpful\Request::post($url)
+                ->body(json_encode(array('status' => $resource->status)))
+                ->sendsJson()
+                ->send();
+        } catch (\Exception $e) {
+            if ($e->getMessage() == 'Unable to parse response as JSON') {
+                // keep working
+            } else {
+                throw new RequestException($e->getMessage(), $e->getCode());
+            }
+        }
+
+        return $response;
     }
 
     public function exported(ApiResource $resource)
@@ -93,6 +130,9 @@ class OrderRequest extends Request
 
 	public function cancel(ApiResource $resource)
 	{
+        if (!isset($resource->status))
+            return;
+
 		$idField = $resource->getIdField();
 
 		$url = $this->generateUrl($resource->{$idField}.'/cancel');
@@ -106,7 +146,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body($this->createPostBody($resource))
+                ->body(json_encode(array('status' => $resource->status)))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -122,6 +162,9 @@ class OrderRequest extends Request
 
 	public function delivery(ApiResource $resource)
 	{
+        if (!isset($resource->status))
+            return;
+
 		$idField = $resource->getIdField();
 
 		$url = $this->generateUrl($resource->{$idField}.'/delivery');
@@ -135,7 +178,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body($this->createPostBody($resource))
+                ->body(json_encode(array('status' => $resource->status)))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
