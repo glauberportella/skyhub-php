@@ -45,13 +45,13 @@ class StatusTypeRequest extends Request
         $resources = null;
 
         if (is_array($response->body)) {
-            $o = new $this->resourceClassName;
+            $object = new $this->resourceClassName;
             $types = array();
             foreach ($response->body as $data) {
                 $types[] = $data;
             }
-            $o->types = $types;
-            $resources[] = $o;
+            $object->types = $types;
+            $resources[] = $object;
         } else {
             $resources = new $this->resourceClassName;
             foreach ($response->body as $prop => $val) {

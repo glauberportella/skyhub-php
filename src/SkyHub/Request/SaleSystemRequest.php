@@ -45,13 +45,13 @@ class SaleSystemRequest extends Request
         $resources = null;
 
         if (is_array($response->body)) {
-            $o = new $this->resourceClassName;
+            $object = new $this->resourceClassName;
             $sytems = array();
             foreach ($response->body as $data) {
                 $sytems[] = $data;
             }
-            $o->sytems = $sytems;
-            $resources[] = $o;
+            $object->sytems = $sytems;
+            $resources[] = $object;
         } else {
             $resources = new $this->resourceClassName;
             foreach ($response->body as $prop => $val) {

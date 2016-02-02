@@ -202,11 +202,11 @@ abstract class Request implements RequestInterface
         if (is_array($response->body)) {
             $resources = array();
             foreach ($response->body as $data) {
-                $o = new $this->resourceClassName;
+                $object = new $this->resourceClassName;
                 foreach ($data as $prop => $val) {
-                    $o->$prop = $val;
+                    $object->$prop = $val;
                 }
-                $resources[] = $o;
+                $resources[] = $object;
             }
         } else {
             $resources = new $this->resourceClassName;
