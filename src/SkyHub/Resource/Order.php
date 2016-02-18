@@ -23,5 +23,8 @@ namespace SkyHub\Resource;
 
 class Order extends ApiResource
 {
-	
+	public function __construct()
+	{
+		$this->resourceRequestKey = 'order';
+	}
 }

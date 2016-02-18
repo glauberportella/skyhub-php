@@ -23,5 +23,10 @@ namespace SkyHub\Resource;
 
 class Product extends ApiResource
 {
-	protected $idField = 'sku';	
+	protected $idField = 'sku';
+
+	public function __construct()
+	{
+		$this->resourceRequestKey = 'product';
+	}
 }

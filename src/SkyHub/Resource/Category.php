@@ -23,5 +23,8 @@ namespace SkyHub\Resource;
 
 class Category extends ApiResource
 {
-	
+	public function __construct()
+	{
+		$this->resourceRequestKey = 'category';
+	}
 }

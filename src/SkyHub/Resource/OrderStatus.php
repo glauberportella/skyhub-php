@@ -23,5 +23,8 @@ namespace SkyHub\Resource;
 
 class OrderStatus extends ApiResource
 {
-	
+	public function __construct()
+	{
+		$this->resourceRequestKey = 'status';
+	}
 }
