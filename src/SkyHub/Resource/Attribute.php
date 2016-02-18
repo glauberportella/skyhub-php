@@ -23,5 +23,8 @@ namespace SkyHub\Resource;
 
 class Attribute extends ApiResource
 {
-	
+	public function __construct()
+	{
+		$this->resourceRequestKey = 'attribute';
+	}
 }

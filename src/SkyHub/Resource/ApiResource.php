@@ -31,6 +31,13 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 	protected $idField = 'code';
 
 	/**
+	 * Name of request param for the resource for PUT and POST
+	 * requests on SkyHub
+	 * @var string
+	 */
+	public $resourceRequestKey;
+
+	/**
 	 * @var array
 	 */
 	protected $data;
