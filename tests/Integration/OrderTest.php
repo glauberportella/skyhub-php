@@ -44,7 +44,7 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 	public function testCancel()
 	{
 		$resource = new Order();
-		$resource->code = '1001';
+		$resource->code = 'Submarino-1455563835202';
 		$this->request->cancel($resource);
 	}
 
@@ -65,8 +65,8 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 	public function testExported()
 	{
 		$resource = new Order();
-		$resource->code = '1001';
-		$resource->exported = false;
+		$resource->code = 'Submarino-1455978238246';
+		$resource->exported = true;
 		$this->request->exported($resource);
 	}
 
@@ -106,9 +106,8 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 	{
 		$resource = new \SkyHub\Resource\Order();
 		$resource->channel = "Submarino";
-		$resource->status = "pagamento_pendente";
+		//$resource->status = "pagamento_pendente";
 		$resource->items = array(
-			array("id" => 2, "qty" => 1),
 			array("id" => 1, "qty" => 1),
 		);
 		$resource->customer = array(
@@ -139,11 +138,11 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 			"country" => "Brasil",
 			"post_code" => "31814500"
 		);
-  		$resource->shipping_method = "correios";
+  		$resource->shipping_method = "Correios PAC";
 
   		$estimatedDelivery = new \DateTime();
 		$estimatedDelivery->add(new \DateInterval('P15D'));
-		$resource->estimated_delivery = $estimatedDelivery->format('Y-m-d H:i:s');
+		$resource->estimated_delivery = $estimatedDelivery->format('Y-m-d');
 		$resource->shipping_cost = 17.50;
 		$resource->interest = 0;
 
