@@ -45,20 +45,40 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 	{
 		$resource = new Order();
 		$resource->code = 'Submarino-1455563835202';
+		$resource->status = '6';
 		$this->request->cancel($resource);
 	}
 
 	public function testDelivery()
 	{
 		$resource = new Order();
-		$resource->code = '1001';
+		$resource->code = 'Submarino-1455563835202';
+		$resource->status = '5';
 		$this->request->delivery($resource);
 	}
 
 	public function testShipments()
 	{
 		$resource = new Order();
-		$resource->code = '1001';
+		$resource->code = 'Submarino-1455563835202';
+		$resource->status = '4';
+		$resource->shipment = array(
+			'code' => 'skyhub-shipment-4', // shipment code
+			// shipment itens
+			'items' => array(
+				array('sku' => '1', 'qty' => 1)
+			), // items added below
+			// track info
+			'track' => array(
+				'code' => '123456789123456789', // track code
+				'carrier' => 'Correios', // carrier, setting below
+				'method' => 'PAC' // shipment method, setting below
+			),
+		);
+		$resource->invoice = array(
+			'key' => '123456789-ABCDEF' // NF-e key
+		);
+
 		$this->request->shipments($resource);
 	}
 

@@ -22,6 +22,7 @@
 namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
+use SkyHub\Exception\RequestException;
 use SkyHub\Exception\MethodNotAllowedException;
 
 class OrderRequest extends Request
