@@ -309,6 +309,9 @@ abstract class Request implements RequestInterface
      */
     protected function createPutBody(ApiResource $resource)
     {
+        if (!empty($resource->resourceRequestKey))
+            return json_encode(array($resource->resourceRequestKey => $resource));
+        
         return json_encode($resource);
     }
 }
