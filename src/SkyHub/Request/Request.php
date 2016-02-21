@@ -105,6 +105,7 @@ abstract class Request implements RequestInterface
         }
 
         $url = $this->generateUrl($code, $params);
+
         $response = \Httpful\Request::get($url)->send();
         if (isset($response->body->error)) {
             if (1 === preg_match('/não foi possível encontrar/i', $response->body->error)) {

@@ -70,7 +70,7 @@ class OrderRequest extends Request
     public function getNotSynced()
     {
         return $this->get(null, array(
-            'filters' => array('sync_status' => array('NOT_SYNCED'))
+            'filters' => array('sync_status' => array(''=>'NOT_SYNCED'))
         ));
     }
 
@@ -115,7 +115,7 @@ class OrderRequest extends Request
 
         try {
             $response = \Httpful\Request::put($url)
-                ->body(json_encode($resource))
+                ->body(json_encode(array('exported' => $resource->exported)))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -131,9 +131,6 @@ class OrderRequest extends Request
 
 	public function cancel(ApiResource $resource)
 	{
-        if (!isset($resource->status))
-            return;
-
 		$idField = $resource->getIdField();
 
 		$url = $this->generateUrl($resource->{$idField}.'/cancel');
@@ -147,7 +144,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode($resource))
+                ->body(json_encode(array('status' => 'canceled')))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -163,9 +160,6 @@ class OrderRequest extends Request
 
 	public function delivery(ApiResource $resource)
 	{
-        if (!isset($resource->status))
-            return;
-
 		$idField = $resource->getIdField();
 
 		$url = $this->generateUrl($resource->{$idField}.'/delivery');
@@ -179,7 +173,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode($resource))
+                ->body(json_encode(array('status' => 'complete')))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
