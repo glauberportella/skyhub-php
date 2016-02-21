@@ -87,7 +87,7 @@ class OrderRequest extends Request
 
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
+                ->body(json_encode($resource->status))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -103,8 +103,9 @@ class OrderRequest extends Request
 
     public function exported(ApiResource $resource)
     {
-    	if (!isset($resource->exported))
-    		return;
+    	if (!isset($resource->exported)) {
+            $resource->exported = false;
+        }
     	
     	$idField = $resource->getIdField();
 
@@ -114,7 +115,7 @@ class OrderRequest extends Request
 
         try {
             $response = \Httpful\Request::put($url)
-                ->body(json_encode(array('exported' => $resource->exported)))
+                ->body(json_encode($resource))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -146,7 +147,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
+                ->body(json_encode($resource))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -178,7 +179,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
+                ->body(json_encode($resource))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -207,7 +208,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body($this->createPostBody($resource))
+                ->body(json_encode($resource))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
