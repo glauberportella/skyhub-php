@@ -268,6 +268,10 @@ You can also use a Resource object instance to get the request object
 	$statusType = new \SkyHub\Resource\StatusType();
 	$statusTypeReq = \SkyHub\Request\RequestFactory::fromResource($statusType, $auth);
 
+# TODO
+
+1. **FIX** PHP notice when PUT Product resource: code index not exist
+
 # The MIT License (MIT)
 
 Copyright (c) 2015 Glauber Portella <glauberportella@gmail.com>
