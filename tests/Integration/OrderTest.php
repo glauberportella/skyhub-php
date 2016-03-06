@@ -41,6 +41,9 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 		$resource = $this->request->get('1001');
 	}
 
+	/**
+	 * @expectedException \SkyHub\Exception\SemanticalErrorException
+	 */
 	public function testCancel()
 	{
 		$resource = new Order();
@@ -49,6 +52,9 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 		$this->request->cancel($resource);
 	}
 
+	/**
+	 * @expectedException \SkyHub\Exception\SemanticalErrorException
+	 */
 	public function testDelivery()
 	{
 		$resource = new Order();
@@ -57,6 +63,9 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 		$this->request->delivery($resource);
 	}
 
+	/**
+	 * @expectedException \SkyHub\Exception\SemanticalErrorException
+	 */
 	public function testShipments()
 	{
 		$resource = new Order();

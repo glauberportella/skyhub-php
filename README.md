@@ -17,12 +17,18 @@ The library has the following classes
 ### Exceptions
 
 - \SkyHub\Exception\ForbiddenException
+- \SkyHub\Exception\MalformedRequestException
 - \SkyHub\Exception\MethodNotAllowedException
 - \SkyHub\Exception\NotAcceptableException
 - \SkyHub\Exception\NotFoundException
 - \SkyHub\Exception\RequestException
+- \SkyHub\Exception\SemanticalErrorException
 - \SkyHub\Exception\SkyHubException
 - \SkyHub\Exception\UnauthorizedException
+
+### Handlers
+
+- \SkyHub\Handlers\JsonHandler
 
 ### Requests
 
