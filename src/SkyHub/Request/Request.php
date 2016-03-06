@@ -26,7 +26,10 @@ use SkyHub\Security\Auth;
 use SkyHub\Exception\SkyHubException;
 use SkyHub\Exception\NotFoundException;
 use SkyHub\Exception\RequestException;
+
+use Httpful\Httpful;
 use Httpful\Request as HttpfulRequest;
+use Httpful\Response as HttpfulResponse;
 
 abstract class Request implements RequestInterface
 {
@@ -66,6 +69,13 @@ abstract class Request implements RequestInterface
     private $requestTemplate;
 
     /**
+     * SkyHub json handler
+     * 
+     * @var \SkyHub\Handler\JsonHandler
+     */
+    private $jsonHandler;
+
+    /**
      * Child must return the specific endpoint
      * 
      * @return string
@@ -80,6 +90,10 @@ abstract class Request implements RequestInterface
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
+
+        $this->jsonHandler = new \SkyHub\Handlers\JsonHandler();
+        $this->jsonHandler->init(array());
+        Httpful::register(\Httpful\Mime::JSON, $this->jsonHandler);
 
         // creates a request template, every request must have the auth headers
         $this->requestTemplate = HttpfulRequest::init()
@@ -107,6 +121,10 @@ abstract class Request implements RequestInterface
         $url = $this->generateUrl($code, $params);
 
         $response = \Httpful\Request::get($url)->send();
+
+        $this->checkResponseErrors($response);
+
+        /*
         if (isset($response->body->error)) {
             if (1 === preg_match('/não foi possível encontrar/i', $response->body->error)) {
                 throw new NotFoundException($response->body->error);
@@ -114,6 +132,7 @@ abstract class Request implements RequestInterface
 
             throw new SkyHubException($response->body->error);
         }
+        */
 
         $resources = $this->responseToResources($response);
 
@@ -130,13 +149,22 @@ abstract class Request implements RequestInterface
     {
         $url = $this->endpoint();
 
-        $response = null;
+        $body = $this->createPostBody($resource);
 
+        $response = \Httpful\Request::post($url)
+                ->body($body)
+                ->sendsJson()
+                ->send();
+
+        $this->checkResponseErrors($response);
+
+        //$response = null;
         // SkyHub API POST return no response or an empty response
         // Httpful think it is an error so we catch the exception and proceed
         // normally. 
         // 
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
+        /*
         try {
             $response = \Httpful\Request::post($url)
                 ->body($this->createPostBody($resource))
@@ -149,7 +177,8 @@ abstract class Request implements RequestInterface
                 throw new RequestException($e->getMessage(), $e->getCode());
             }
         }
-
+        */
+       
         return $response;
     }
 
@@ -165,10 +194,14 @@ abstract class Request implements RequestInterface
         $idField = $resource->getIdField();
 
         $url = $this->generateUrl($resource->{$idField});
+        $body = $this->createPutBody($resource);
         $response = \Httpful\Request::put($url)
-            ->body($this->createPutBody($resource))
+            ->body($body)
             ->sendsJson()
             ->send();
+
+        $this->checkResponseErrors($response);
+
         return $response;
     }
 
@@ -187,6 +220,9 @@ abstract class Request implements RequestInterface
 
         $url = $this->generateUrl($code);
         $response = \Httpful\Request::delete($url);
+
+        $this->checkResponseErrors($response);
+
         return $response;
     }
 
@@ -313,5 +349,38 @@ abstract class Request implements RequestInterface
             return json_encode(array($resource->resourceRequestKey => $resource));
         
         return json_encode($resource);
+    }
+
+    /**
+     * Throw API exceptions based on response status code
+     * 
+     * @param  HttpfulResponse $response The response to verify
+     * @throws \SkyHub\Exception\SkyHubException according to response status code
+     */
+    protected function checkResponseErrors(HttpfulResponse $response)
+    {
+        switch ($response->code) {
+            case 400: // Requisição mal-formada
+                throw new \SkyHub\Exception\MalformedRequestException($response->body->error);
+                break;
+            case 401: // Erro de autenticação
+                throw new \SkyHub\Exception\UnauthorizedException($response->body->error);
+                break;
+            case 403: // Erro de autorização
+                throw new \SkyHub\Exception\ForbiddenException($response->body->error);
+                break;
+            case 404: // Recurso não encontrado
+                throw new \SkyHub\Exception\NotFoundException($response->body->error);
+                break;
+            case 405: // Metodo não suportado
+                throw new \SkyHub\Exception\MethodNotAllowedException($response->body->error);
+                break;
+            case 422: // Erro semântico
+                throw new \SkyHub\Exception\SemanticalErrorException($response->body->error);
+                break;
+            case 500: // Erro na API
+                throw new \SkyHub\Exception\SkyHubException($response->body->error);
+                break;
+        }
     }
 }

@@ -24,5 +24,5 @@ namespace SkyHub\Exception;
 class ForbiddenException extends RequestException
 {
 	protected $code = 403;
-	protected $message = 'A aplicação está tentando acessar um recurso ao qual não tem permissão.';
+	protected $message = 'SkyHub API - A aplicação está tentando acessar um recurso ao qual não tem permissão.';
 }

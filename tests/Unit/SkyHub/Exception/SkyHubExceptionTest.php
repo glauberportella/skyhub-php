@@ -13,6 +13,6 @@ class SkyHubExceptionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('SkyHub\Exception\ForbiddenException', $jsonDeserialized['exception']);
 		$this->assertEquals(403, $jsonDeserialized['code']);
-		$this->assertEquals('A aplicação está tentando acessar um recurso ao qual não tem permissão.', $jsonDeserialized['message']);
+		$this->assertEquals('SkyHub API - A aplicação está tentando acessar um recurso ao qual não tem permissão.', $jsonDeserialized['message']);
 	}
 }

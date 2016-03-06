@@ -19,10 +19,25 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace SkyHub\Exception;
+namespace SkyHub\Handlers;
 
-class NotAcceptableException extends RequestException
+use Httpful\Handlers\JsonHandler as HttpfulJsonHandler;
+
+class JsonHandler extends HttpfulJsonHandler
 {
-	protected $code = 406;
-	protected $message = 'SkyHub API - Não há suporte ao formato de dados especificado no cabeçalho Accept.';
+	private $decode_as_array = false;
+	
+	public function parse($body)
+	{
+		$body = $this->stripBom($body);
+
+		if (empty($body) || ' ' == $body || '' == $body)
+			return null;
+
+		$parsed = json_decode($body, $this->decode_as_array);
+		
+		if (is_null($parsed) && 'null' !== strtolower($body))
+			throw new \Exception("Unable to parse response as JSON");
+		return $parsed;
+	}
 }

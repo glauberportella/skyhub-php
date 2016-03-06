@@ -5,7 +5,7 @@ namespace Tests\Integration;
 use Tests\Integration\IntegrationTestInterface;
 use SkyHub\Resource\Order;
 
-class OrderTest extends \PHPUnit_Framework_Testcase
+class OrderTest extends \PHPUnit_Framework_TestCase
 {
 	private $auth;
 	private $request;
@@ -124,50 +124,52 @@ class OrderTest extends \PHPUnit_Framework_Testcase
 
 	public function testCreateTest()
 	{
-		$resource = new \SkyHub\Resource\Order();
-		$resource->channel = "Submarino";
-		//$resource->status = "pagamento_pendente";
-		$resource->items = array(
-			array("id" => 1, "qty" => 1),
+		$order = new \SkyHub\Resource\Order();
+		
+		$order->channel = "Submarino";
+		$order->status = "11";
+		$order->items = array(
+		    array("id" => "1", "qty" => 1),
 		);
-		$resource->customer = array(
-		    "name" => "Glauber Portella",
-		    "email" => "glauberportella@gmail.com",
-		    "date_of_birth" => "1982-01-12",
-		    "gender" => "masculino",
-		    "vat_number" => "05771095613",
-		    "phones" => array('(31) 3433-5488', '(31) 99246-8610')
-		);
-		$resource->billing_address = array(
-			"street" => "Rua dos Alvarengas",
-			"number" => "40",
-			"detail" => "",
-			"neighborhood" => "Aarão Reis",
-			"city" => "Belo Horizonte",
-			"region" => "MG",
-			"country" => "Brasil",
-			"post_code" => "31814500"
-		);
-		$resource->shipping_address = array(
-			"street" => "Rua dos Alvarengas",
-			"number" => "40",
-			"detail" => "",
-			"neighborhood" => "Aarão Reis",
-			"city" => "Belo Horizonte",
-			"region" => "MG",
-			"country" => "Brasil",
-			"post_code" => "31814500"
-		);
-  		$resource->shipping_method = "Correios PAC";
 
-  		$estimatedDelivery = new \DateTime();
-		$estimatedDelivery->add(new \DateInterval('P15D'));
-		$resource->estimated_delivery = $estimatedDelivery->format('Y-m-d');
-		$resource->shipping_cost = 17.50;
-		$resource->interest = 0;
+		$order->customer = array(
+		    "name" => "Glauber Portella",
+		    "email" => "exemplo@skyhub.com.br",
+		    "date_of_birth" => "1998-01-25",
+		    "gender" => "male",
+		    "vat_number" => "78732371683",
+		    "phones" => array("21 3722-3902")
+		);
+
+		$order->billing_address = array(
+		    "street" => "Rua Sacadura Cabral",
+		    "number" => "130",
+		    "detail" => "",
+		    "neighborhood" => "Centro",
+		    "city" => "Rio de Janeiro",
+		    "region" => "RJ",
+		    "country" => "BR",
+		    "post_code" => "20081262"
+		);
+
+		$order->shipping_address = array(
+		    "street" => "Rua Sacadura Cabral",
+		    "number" => "130",
+		    "detail" => "",
+		    "neighborhood" => "Centro",
+		    "city" => "Rio de Janeiro",
+		    "region" => "RJ",
+		    "country" => "BR",
+		    "post_code" => "20081262"
+		);
+
+		$order->shipping_method = "Correios PAC";
+		$order->estimated_delivery = "2017-02-11";
+		$order->shipping_cost = 15.32;
+		$order->interest = 3.54;
 
 		try {
-			$this->request->createTest($resource);
+			$this->request->createTest($order);
 		} catch (Exception $e) {
 			$this->fail('Request fail on OrderRequest::createTest()');
 		}

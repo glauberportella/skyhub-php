@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Integration;
+namespace Tests\Integration;
 
 use Tests\Integration\IntegrationTestInterface;
 use SkyHub\Resource\StatusType;

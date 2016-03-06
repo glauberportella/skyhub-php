@@ -9,7 +9,10 @@
   </logging>
   <testsuites>
     <testsuite name="SkyHub">
-      <directory>tests</directory>
+      <!-- <directory>tests</directory> -->
+      <!-- isolation tests -->
+      <!-- <file>tests/Integration/CategoryTest.php</file> -->
+      <file>tests/Integration/OrderTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

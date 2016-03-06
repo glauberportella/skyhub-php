@@ -7,7 +7,7 @@ class NotAcceptableExceptionTest extends \PHPUnit_Framework_TestCase
 	/**
      * @expectedException     		\SkyHub\Exception\NotAcceptableException
      * @expectedExceptionCode 		406
-     * @expectedExceptionMessage	A SkyHub – API não suporta o formato de dados especificado no cabeçalho Accept.
+     * @expectedExceptionMessage	SkyHub API - Não há suporte ao formato de dados especificado no cabeçalho Accept.
      */
 	public function testCanThrowSuccessfully()
 	{

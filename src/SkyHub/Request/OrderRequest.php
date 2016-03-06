@@ -84,6 +84,14 @@ class OrderRequest extends Request
 
         $url = $this->generateUrl($resource->{$idField}.'/approval');
 
+        $response = \Httpful\Request::post($url)
+                ->body(json_encode(array('status' => $resource->status)))
+                ->sendsJson()
+                ->send();
+
+        $this->checkResponseErrors($response);
+
+        /*
         $response = null;
 
         try {
@@ -98,6 +106,7 @@ class OrderRequest extends Request
                 throw new RequestException($e->getMessage(), $e->getCode());
             }
         }
+        */
 
         return $response;
     }
@@ -112,6 +121,14 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/exported');
 
+        $response = \Httpful\Request::put($url)
+                ->body(json_encode(array('exported' => $resource->exported)))
+                ->sendsJson()
+                ->send();
+
+        $this->checkResponseErrors($response);
+
+        /*
         $response = null;
 
         try {
@@ -126,6 +143,7 @@ class OrderRequest extends Request
                 throw new RequestException($e->getMessage(), $e->getCode());
             }
         }
+        */
 
         return $response;
     }
@@ -136,6 +154,14 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/cancel');
 
+        $response = \Httpful\Request::post($url)
+                ->body(json_encode(array('status' => $resource->status)))
+                ->sendsJson()
+                ->send();
+
+        $this->checkResponseErrors($response);
+
+        /*
         $response = null;
 
         // SkyHub API POST return no response or an empty response
@@ -155,7 +181,8 @@ class OrderRequest extends Request
                 throw new RequestException($e->getMessage(), $e->getCode());
             }
         }
-
+        */
+       
         return $response;
 	}
 
@@ -165,6 +192,14 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/delivery');
 
+        $response = \Httpful\Request::post($url)
+                ->body(json_encode(array('status' => $resource->status)))
+                ->sendsJson()
+                ->send();
+        
+        $this->checkResponseErrors($response);
+
+        /*
         $response = null;
 
         // SkyHub API POST return no response or an empty response
@@ -184,7 +219,8 @@ class OrderRequest extends Request
                 throw new RequestException($e->getMessage(), $e->getCode());
             }
         }
-
+        */
+       
         return $response;
 	}
 
@@ -194,6 +230,14 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/shipments');
 
+        $response = \Httpful\Request::post($url)
+                ->body(json_encode($resource))
+                ->sendsJson()
+                ->send();
+
+        $this->checkResponseErrors($response);
+
+        /*
         $response = null;
 
         // SkyHub API POST return no response or an empty response
@@ -213,6 +257,7 @@ class OrderRequest extends Request
                 throw new RequestException($e->getMessage(), $e->getCode());
             }
         }
+        */
 
         return $response;
 	}

@@ -24,5 +24,5 @@ namespace SkyHub\Exception;
 class UnauthorizedException extends RequestException
 {
 	protected $code = 401;
-	protected $message = 'O cabeçalho (header) da requisição não contém (ou estão errados) os dados de acesso: e-mail e/ou token.';
+	protected $message = 'SkyHub API - O cabeçalho (header) da requisição não contém (ou estão errados) os dados de acesso: e-mail e/ou token.';
 }

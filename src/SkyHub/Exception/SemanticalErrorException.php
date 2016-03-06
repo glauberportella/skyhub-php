@@ -21,8 +21,8 @@
 
 namespace SkyHub\Exception;
 
-class NotAcceptableException extends RequestException
+class SemanticalErrorException extends RequestException
 {
-	protected $code = 406;
-	protected $message = 'SkyHub API - Não há suporte ao formato de dados especificado no cabeçalho Accept.';
+	protected $code = 422;
+	protected $message = 'SkyHub API - Erro semântico.';
 }

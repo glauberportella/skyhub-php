@@ -24,5 +24,5 @@ namespace SkyHub\Exception;
 class MethodNotAllowedException extends RequestException
 {
 	protected $code = 405;
-	protected $message = 'A SkyHub – API não suporta o metodo para o recurso solicitado.';
+	protected $message = 'SkyHub API - não há suporte para o método requisitado.';
 }

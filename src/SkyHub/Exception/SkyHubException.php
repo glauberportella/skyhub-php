@@ -23,6 +23,9 @@ namespace SkyHub\Exception;
 
 class SkyHubException extends \Exception implements \JsonSerializable
 {
+	protected $code = 500;
+	protected $message = 'SkyHub API - Internal error.';
+
 	public function jsonSerialize()
 	{
 		return array(
