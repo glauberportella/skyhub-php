@@ -31,4 +31,9 @@ class OrderStatusRequest extends Request
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/statuses';
     }
+
+    public function get($code = null, array $params = array())
+    {
+        return parent::get(null, array());
+    }
 }

@@ -66,7 +66,7 @@ Below is some Product requests, the principle is the same for the other type of 
 	<?php
 	require_once dirname(__FILE__).'/vendor/autoload.php';
 
-	// Every request need an Auth
+	// Every request needs an Auth
 	$auth = new \SkyHub\Security\Auth('YOUR-API-EMAIL', 'YOUR-TOKEN');
 
 	// The request object
@@ -82,7 +82,7 @@ Below is some Product requests, the principle is the same for the other type of 
 	<?php
 	require_once dirname(__FILE__).'/vendor/autoload.php';
 
-	// Every request need an Auth
+	// Every request needs an Auth
 	$auth = new \SkyHub\Security\Auth('YOUR-API-EMAIL', 'YOUR-TOKEN');
 
 	// The request object
@@ -111,7 +111,7 @@ Below is some Product requests, the principle is the same for the other type of 
 	<?php
 	require_once dirname(__FILE__).'/vendor/autoload.php';
 
-	// Every request need an Auth
+	// Every request needs an Auth
 	$auth = new \SkyHub\Security\Auth('YOUR-API-EMAIL', 'YOUR-TOKEN');
 
 	// The request object
@@ -180,7 +180,7 @@ Below is some Product requests, the principle is the same for the other type of 
 	<?php
 	require_once dirname(__FILE__).'/vendor/autoload.php';
 
-	// Every request need an Auth
+	// Every request needs an Auth
 	$auth = new \SkyHub\Security\Auth('YOUR-API-EMAIL', 'YOUR-TOKEN');
 
 	// The request object
@@ -208,7 +208,7 @@ For easy request creation or some runtime request creation you can use the \SkyH
 	<?php
 	require_once dirname(__FILE__).'/vendor/autoload.php';
 
-	// Every request need an Auth
+	// Every request needs an Auth
 	$auth = new \SkyHub\Security\Auth('YOUR-API-EMAIL', 'YOUR-TOKEN');
 
 	// An Attribute request
@@ -237,7 +237,7 @@ You can also use a Resource object instance to get the request object
 	<?php
 	require_once dirname(__FILE__).'/vendor/autoload.php';
 
-	// Every request need an Auth
+	// Every request needs an Auth
 	$auth = new \SkyHub\Security\Auth('YOUR-API-EMAIL', 'YOUR-TOKEN');
 
 	// An Attribute request

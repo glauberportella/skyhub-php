@@ -22,6 +22,7 @@
 namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
+use SkyHub\Exception\RequestException;
 use SkyHub\Exception\MethodNotAllowedException;
 
 class OrderRequest extends Request
@@ -87,7 +88,7 @@ class OrderRequest extends Request
 
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode($resource->status))
+                ->body(json_encode(array('status' => $resource->status)))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -144,7 +145,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => 'canceled')))
+                ->body(json_encode(array('status' => $resource->status)))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
@@ -173,7 +174,7 @@ class OrderRequest extends Request
         // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
         try {
             $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => 'complete')))
+                ->body(json_encode(array('status' => $resource->status)))
                 ->sendsJson()
                 ->send();
         } catch (\Exception $e) {
