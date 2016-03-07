@@ -329,7 +329,7 @@ abstract class Request implements RequestInterface
      * @param  ApiResource $resource
      * @return json encoded
      */
-    protected function createPostBody(ApiResource $resource)
+    public function createPostBody(ApiResource $resource)
     {
         if (!empty($resource->resourceRequestKey))
             return json_encode(array($resource->resourceRequestKey => $resource));
@@ -343,7 +343,7 @@ abstract class Request implements RequestInterface
      * @param  ApiResource $resource
      * @return json encoded
      */
-    protected function createPutBody(ApiResource $resource)
+    public function createPutBody(ApiResource $resource)
     {
         if (!empty($resource->resourceRequestKey))
             return json_encode(array($resource->resourceRequestKey => $resource));
