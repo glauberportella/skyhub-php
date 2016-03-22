@@ -236,6 +236,9 @@ abstract class Request implements RequestInterface
     {
         $resources = null;
 
+        if (!isset($response->body) || !$response->body)
+            return null;
+
         if (is_array($response->body)) {
             $resources = array();
             foreach ($response->body as $data) {
