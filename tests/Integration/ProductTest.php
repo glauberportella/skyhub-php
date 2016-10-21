@@ -17,11 +17,16 @@ class ProductTest extends \PHPUnit_Framework_Testcase
 	}
 
 	/**
-	 * @expectedException \SkyHub\Exception\MethodNotAllowedException
+	 * @depends testPost
 	 */
-	public function testDelete()
+	public function testDelete($resource)
 	{
-		$this->request->delete('10001');
+		try {
+			$this->request->delete($resource);
+			$this->assertTrue(true);
+		} catch (\Exception $e) {
+			$this->fail($e->getMessage());
+		}
 	}
 
 	public function testGet()
@@ -31,16 +36,18 @@ class ProductTest extends \PHPUnit_Framework_Testcase
 
 		return $resources;
 	}
-
-	public function testGetOneProduct()
+	/**
+	 * @depends testPost
+	 */
+	public function testGetOneProduct($resourceIn)
 	{
-		$resource = $this->request->get('sku-1451261809');
+		$resource = $this->request->get($resourceIn->sku);
 		$this->assertInstanceOf('\SkyHub\Resource\Product', $resource, 'Not an instance of \SkyHub\Resource\Product.');
 
 		return $resource;
 	}
 
-	/*public function testPost()
+	public function testPost()
 	{
 		$ts = time();
 		$sku = "sku-$ts";
@@ -101,7 +108,7 @@ class ProductTest extends \PHPUnit_Framework_Testcase
 		}
 
 		return $resource;
-	}*/
+	}
 
 	/**
 	 * @depends testGetOneProduct
