@@ -277,6 +277,7 @@ You can also use a Resource object instance to get the request object
 # TODO
 
 1. **FIX** PHP notice when PUT Product resource: code index not exist
+2. Add others API resources (Queue, Variations, Freights)
 
 # The MIT License (MIT)
 

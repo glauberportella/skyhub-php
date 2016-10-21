@@ -32,16 +32,4 @@ class ProductRequest extends Request
     {
         return RequestInterface::SKYHUB_BASE_API_ENDPOINT . '/products';
     }
-
-    /**
-     * Not yet supported on SkyHub API
-     * 
-     * @param  mixed $code
-     * @throws MethodNotAllowedException
-     */
-    public function delete($code)
-    {
-        // no support on SkyHub API
-        throw new MethodNotAllowedException();
-    }
 }
