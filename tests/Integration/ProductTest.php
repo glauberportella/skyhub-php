@@ -49,57 +49,7 @@ class ProductTest extends \PHPUnit_Framework_Testcase
 
 	public function testPost()
 	{
-		$ts = time();
-		$sku = "sku-$ts";
-
-		$resource = new Product();
-		$resource->sku = $sku;
-		$resource->name = "Produto de teste skyhub-php";
-		$resource->description = "Teste lib PHP para API SkyHub";
-		$resource->status = "enabled";
-		$resource->qty = 10;
-		$resource->price = 1000.50;
-		$resource->promotional_price = 850.50;
-		$resource->cost = 0;
-		$resource->weight = 5;
-		$resource->height = 15;
-		$resource->width = 30;
-		$resource->length = 15;
-		$resource->brand = "skyhub-php";
-		$resource->ean = "";
-		$resource->nbm = "";
-		$resource->categories = array(array (
-		  "code" => "skyhub-php_123456",
-		  "name" => "CatTeste_skyhub-php"
-		));
-		$resource->images = array(
-			'http://lorempixel.com/600/400/'
-		);
-		$resource->specifications = array(
-			array(
-				"key" 	=> "Specification-test123",
-				"value" => "Test skyhub-php lib"
-			),
-		);
-		$resource->variations = array(
-		    array(
-		      	"sku" 			=> "$sku-var",
-		      	"qty" 			=>  5,
-		      	"ean" 			=> "",
-		      	"images" 			=> array(
-		      		'http://lorempixel.com/600/400/'
-		      	),
-		      	"specifications" 	=> array(
-		        	array(
-		          		"key"   => "Specification-var-test123",
-		          		"value" => "Test skyhub-php lib spec variation"
-		        	)
-		      	)
-		    )
-		);
-		$resource->variation_attributes = array(
-			"Specification-var-test123"
-		);
+		$resource = TestProductFactory::factory();
 
 		try {
 			$this->request->post($resource);

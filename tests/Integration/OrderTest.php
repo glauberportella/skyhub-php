@@ -133,12 +133,20 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 
 	public function testCreateTest()
 	{
+		$productRequest  = new \SkyHub\Request\ProductRequest($this->auth);
+		$product = TestProductFactory::factory();
+		try {
+			$productRequest->post($product);
+		} catch (\Exception $e) {
+			$this->fail('Product test POST fail: '.$e->getMessage());
+		}
+
 		$order = new \SkyHub\Resource\Order();
 		
 		$order->channel = "Submarino";
 		$order->status = "11";
 		$order->items = array(
-		    array("id" => "1", "qty" => 1),
+		    array("id" => $product->sku, "qty" => 1),
 		);
 
 		$order->customer = array(
@@ -181,6 +189,13 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 			$this->request->createTest($order);
 		} catch (Exception $e) {
 			$this->fail('Request fail on OrderRequest::createTest()');
+		}
+
+		// delete product
+		try {
+			$productRequest->delete($product);
+		} catch (\Exception $e) {
+			$this->fail('Product test DELETE fail: '.$e->getMessage());
 		}
 	}
 }

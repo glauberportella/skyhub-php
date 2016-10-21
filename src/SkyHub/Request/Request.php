@@ -219,7 +219,7 @@ abstract class Request implements RequestInterface
         }
 
         $url = $this->generateUrl($code);
-        $response = \Httpful\Request::delete($url);
+        $response = \Httpful\Request::delete($url)->send();
 
         $this->checkResponseErrors($response);
 
