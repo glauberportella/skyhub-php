@@ -261,4 +261,18 @@ class OrderRequest extends Request
 
         return $response;
 	}
+
+    public function invoice(ApiResource $resource)
+    {
+        $idField = $resource->getIdField();
+        
+        $url = $this->generateUrl($resource->{$idField}.'/invoice');
+
+        $response = \Httpful\Request::post($url)
+            ->body(json_encode($resource))
+            ->sendsJson()
+            ->send();
+
+        $this->checkResponseErrors($response);
+    }
 }
