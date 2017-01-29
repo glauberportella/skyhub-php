@@ -59,4 +59,17 @@ class ApiResourceTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('value_key1', $decoded->array_prop->key1);
 		$this->assertEquals('value_key2', $decoded->array_prop->key2);
 	}
+
+	public function testFromArray()
+	{
+		$data = [
+			'id' => 1,
+			'name' => 'Category name',
+		];
+		$obj = new \SkyHub\Resource\Category();
+		$obj->fromArray($data);
+		$this->assertInstanceOf('\SkyHub\Resource\Category', $obj);
+		$this->assertEquals(1, $obj->id);
+		$this->assertEquals('Category name', $obj->name);
+	}
 }

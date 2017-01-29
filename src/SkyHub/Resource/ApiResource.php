@@ -74,4 +74,10 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 	{
 		return $this->idField;
 	}
+
+	public function fromArray(array $data)
+	{
+		$this->data = $data;
+		return $this;
+	}
 }
