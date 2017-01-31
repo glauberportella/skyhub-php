@@ -1,0 +1,63 @@
+{
+    "code": "Submarino-1485649974285",
+    "channel": "Submarino",
+    "placed_at": "2017-01-28T22:32:53-02:00",
+    "updated_at": "2017-01-28T22:32:53-02:00",
+    "total_ordered": 869.36,
+    "interest": 3.54,
+    "shipping_cost": 15.32,
+    "shipping_method": "Correios PAC",
+    "estimated_delivery": "2017-02-10T22:00:00-02:00",
+    "estimated_delivery_shift": null,
+    "shipping_address": {
+        "full_name": "Glauber Portella",
+        "street": "Rua Sacadura Cabral",
+        "number": "130",
+        "detail": "",
+        "neighborhood": "Centro",
+        "city": "Rio de Janeiro",
+        "region": "RJ",
+        "country": "BR",
+        "postcode": null
+    },
+    "billing_address": {
+        "full_name": "Glauber Portella",
+        "street": "Rua Sacadura Cabral",
+        "number": "130",
+        "detail": "",
+        "neighborhood": "Centro",
+        "city": "Rio de Janeiro",
+        "region": "RJ",
+        "country": "BR",
+        "postcode": null
+    },
+    "customer": {
+        "name": "Glauber Portella",
+        "email": "exemplo@skyhub.com.br",
+        "date_of_birth": "1998-01-25",
+        "gender": "male",
+        "vat_number": "78732371683",
+        "phones": [
+            "21 3722-3902"
+        ]
+    },
+    "items": [
+        {
+            "id": "sku-1485649971",
+            "product_id": "sku-1485649971",
+            "name": "Produto de teste skyhub-php",
+            "qty": 1,
+            "original_price": 1000.5,
+            "special_price": 850.5
+        }
+    ],
+    "status": {
+        "code": "11",
+        "label": "Aguardando o pagamento pelo Paypal",
+        "type": "NEW"
+    },
+    "sync_status": "NOT_SYNCED",
+    "invoices": [],
+    "shipments": [],
+    "payments": []
+}

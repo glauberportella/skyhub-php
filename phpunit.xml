@@ -1,4 +1,8 @@
 <phpunit bootstrap="vendor/autoload.php">
+  <php>
+    <const name="SKYHUB_EMAIL" value="glauber.oculosecia@skyhub.com.br" />
+    <const name="SKYHUB_TOKEN" value="2RDxTmtLWmxQPk2zR8x3" />
+  </php>
 	<filter>
 	  <whitelist processUncoveredFilesFromWhitelist="true">
 	    <directory suffix=".php">tests</directory>

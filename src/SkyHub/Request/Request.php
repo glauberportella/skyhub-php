@@ -35,56 +35,56 @@ abstract class Request implements RequestInterface
 {
     /**
      * Auth info (for X-User-Email and X-User-Token headers)
-     * 
+     *
      * @var \SkyHub\Security\Auth
      */
     protected $auth;
 
 	/**
      * Pagination page param
-     * 
+     *
 	 * @var integer
 	 */
 	protected $page = 1;
 
 	/**
      * Pagination per page param
-     * 
+     *
 	 * @var integer
 	 */
 	protected $perPage = 30;
 
     /**
      * Must be set for every child to the complete classname (with namespace) for the resource
-     * 
+     *
      * @var string
      */
     protected $resourceClassName;
 
     /**
      * Request template
-     * 
+     *
      * @var \Httpful\Request A requet template
      */
     private $requestTemplate;
 
     /**
      * SkyHub json handler
-     * 
+     *
      * @var \SkyHub\Handler\JsonHandler
      */
     private $jsonHandler;
 
     /**
      * Child must return the specific endpoint
-     * 
+     *
      * @return string
      */
     abstract public function endpoint();
 
     /**
      * Construt a Request
-     * 
+     *
      * @param Auth $auth SkyHub Auth information to send on headers
      */
     public function __construct(Auth $auth)
@@ -107,7 +107,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Gets a resource
-     * 
+     *
      * @param  mixed $code   String or resource instance
      * @param  array  $params Extra params to add to request
      * @return ApiResourceInterface An ApiResourceInterface concrete object array if no $code is informed or a single resource if $code is informed
@@ -124,16 +124,6 @@ abstract class Request implements RequestInterface
 
         $this->checkResponseErrors($response);
 
-        /*
-        if (isset($response->body->error)) {
-            if (1 === preg_match('/não foi possível encontrar/i', $response->body->error)) {
-                throw new NotFoundException($response->body->error);
-            }
-
-            throw new SkyHubException($response->body->error);
-        }
-        */
-
         $resources = $this->responseToResources($response);
 
         return $resources;
@@ -141,7 +131,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Saves a Resource
-     * 
+     *
      * @param  ApiResource $resource
      * @return \Httpful\Response
      */
@@ -158,33 +148,12 @@ abstract class Request implements RequestInterface
 
         $this->checkResponseErrors($response);
 
-        //$response = null;
-        // SkyHub API POST return no response or an empty response
-        // Httpful think it is an error so we catch the exception and proceed
-        // normally. 
-        // 
-        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
-        /*
-        try {
-            $response = \Httpful\Request::post($url)
-                ->body($this->createPostBody($resource))
-                ->sendsJson()
-                ->send();
-        } catch (\Exception $e) {
-            if ($e->getMessage() == 'Unable to parse response as JSON') {
-                // keep working
-            } else {
-                throw new RequestException($e->getMessage(), $e->getCode());
-            }
-        }
-        */
-       
         return $response;
     }
 
     /**
      * Updates a Resource
-     * 
+     *
      * @param  mixed      $code     String code, or a ApiResourceInterface object with code field
      * @param  ApiResource $resource
      * @return \Httpful\Response
@@ -207,7 +176,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Deletes a Resource
-     * 
+     *
      * @param  mixed $code String code or the ApiResourceInterface instance
      * @return \Httpful\Response
      */
@@ -228,7 +197,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Transform a Response to a ApiResourceInterface
-     * 
+     *
      * @param  \Httpful\Response $response
      * @return ApiResourceInterface array
      */
@@ -260,7 +229,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Generates a URL with or without path and params
-     * 
+     *
      * @param  string $path
      * @param  array  $params
      * @return string
@@ -328,7 +297,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Customize, if needed, the post body to send
-     * 
+     *
      * @param  ApiResource $resource
      * @return json encoded
      */
@@ -342,7 +311,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Customize, if needed, the put body to send
-     * 
+     *
      * @param  ApiResource $resource
      * @return json encoded
      */
@@ -350,13 +319,13 @@ abstract class Request implements RequestInterface
     {
         if (!empty($resource->resourceRequestKey))
             return json_encode(array($resource->resourceRequestKey => $resource));
-        
+
         return json_encode($resource);
     }
 
     /**
      * Throw API exceptions based on response status code
-     * 
+     *
      * @param  HttpfulResponse $response The response to verify
      * @throws \SkyHub\Exception\SkyHubException according to response status code
      */
