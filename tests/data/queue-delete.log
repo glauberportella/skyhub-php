@@ -1,0 +1,71 @@
+{
+    "code": "Submarino-1485889354113",
+    "channel": "Submarino",
+    "placed_at": "2017-01-31T17:02:33-02:00",
+    "updated_at": "2017-01-31T17:02:33-02:00",
+    "total_ordered": 320.1,
+    "interest": 3.4,
+    "shipping_cost": 16.2,
+    "shipping_method": "Correios PAC",
+    "estimated_delivery": "2016-12-14T22:00:00-02:00",
+    "estimated_delivery_shift": null,
+    "shipping_address": {
+        "full_name": "Cliente Teste",
+        "street": "Rua teste",
+        "number": "123",
+        "detail": "",
+        "neighborhood": "Centro",
+        "city": "Belo Horizonte",
+        "region": "MG",
+        "country": "BR",
+        "postcode": "30180100"
+    },
+    "billing_address": {
+        "full_name": "Cliente Teste",
+        "street": "Rua teste",
+        "number": "123",
+        "detail": "",
+        "neighborhood": "Centro",
+        "city": "Belo Horizonte",
+        "region": "MG",
+        "country": "BR",
+        "postcode": "30180100"
+    },
+    "customer": {
+        "name": "Cliente Teste",
+        "email": "glauber.portella@macweb.com.br",
+        "date_of_birth": "1982-01-12",
+        "gender": "male",
+        "vat_number": "05771095613",
+        "phones": [
+            "31 99246-8610"
+        ]
+    },
+    "items": [
+        {
+            "id": "9",
+            "product_id": "9",
+            "name": "Produto 1 varia\u00e7\u00e3o",
+            "qty": 1,
+            "original_price": 100.5,
+            "special_price": 100.5
+        },
+        {
+            "id": "skhb-10-var-47",
+            "product_id": "10",
+            "name": "Produto Mais de Uma Varia\u00e7\u00e3o",
+            "qty": 1,
+            "original_price": 200,
+            "special_price": 200
+        }
+    ],
+    "status": {
+        "code": "10",
+        "label": "Aguardando a transfer\u00eancia do pagamento pelo banco",
+        "type": "NEW"
+    },
+    "sync_status": "NOT_SYNCED",
+    "invoices": [],
+    "shipments": [],
+    "payments": []
+}
