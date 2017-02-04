@@ -106,6 +106,16 @@ abstract class Request implements RequestInterface
     }
 
     /**
+     * Gets the auth.
+     *
+     * @return     \SkyHub\Security\Auth  The auth.
+     */
+    public function getAuth()
+    {
+        return $this->auth;
+    }
+
+    /**
      * Gets a resource
      *
      * @param  mixed $code   String or resource instance

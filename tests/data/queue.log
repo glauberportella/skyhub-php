@@ -1,60 +1,59 @@
 {
-    "code": "Submarino-1485865434787",
+    "code": "Submarino-1486203381069",
     "channel": "Submarino",
-    "placed_at": "2017-01-31T10:23:54-02:00",
-    "updated_at": "2017-01-31T10:23:54-02:00",
-    "total_ordered": 220,
-    "interest": 10,
-    "shipping_cost": 10,
-    "shipping_method": "Transportadora X",
-    "estimated_delivery": "2016-06-25T13:55:28-03:00",
+    "placed_at": "2017-02-04T08:16:20-02:00",
+    "updated_at": "2017-02-04T08:16:20-02:00",
+    "total_ordered": 869.36,
+    "interest": 3.54,
+    "shipping_cost": 15.32,
+    "shipping_method": "Correios PAC",
+    "estimated_delivery": "2017-02-10T22:00:00-02:00",
     "estimated_delivery_shift": null,
     "shipping_address": {
-        "full_name": "Comprador Exemplo",
-        "street": "Rua de exemplo",
-        "number": "4321",
-        "detail": "Sala 404",
-        "neighborhood": "Bairro X",
-        "city": "Cidade Y",
-        "region": "UF",
+        "full_name": "Glauber Portella",
+        "street": "Rua Sacadura Cabral",
+        "number": "130",
+        "detail": "",
+        "neighborhood": "Centro",
+        "city": "Rio de Janeiro",
+        "region": "RJ",
         "country": "BR",
-        "postcode": "90000111"
+        "postcode": null
     },
     "billing_address": {
-        "full_name": "Comprador Exemplo",
-        "street": "Rua de exemplo",
-        "number": "4321",
-        "detail": "Sala 404",
-        "neighborhood": "Bairro X",
-        "city": "Cidade Y",
-        "region": "UF",
+        "full_name": "Glauber Portella",
+        "street": "Rua Sacadura Cabral",
+        "number": "130",
+        "detail": "",
+        "neighborhood": "Centro",
+        "city": "Rio de Janeiro",
+        "region": "RJ",
         "country": "BR",
-        "postcode": "90000111"
+        "postcode": null
     },
     "customer": {
-        "name": "Comprador Exemplo",
-        "email": "comprador@exemplo.com.br",
-        "date_of_birth": "1998-01-01",
+        "name": "Glauber Portella",
+        "email": "exemplo@skyhub.com.br",
+        "date_of_birth": "1998-01-25",
         "gender": "male",
-        "vat_number": "76860543817",
+        "vat_number": "78732371683",
         "phones": [
-            "0099998888",
-            "0099998888"
+            "21 3722-3902"
         ]
     },
     "items": [
         {
-            "id": "10",
-            "product_id": "10",
-            "name": "Produto Mais de Uma Varia\u00e7\u00e3o",
+            "id": "sku-1486203380",
+            "product_id": "sku-1486203380",
+            "name": "Produto de teste skyhub-php",
             "qty": 1,
-            "original_price": 200,
-            "special_price": 200
+            "original_price": 1000.5,
+            "special_price": 850.5
         }
     ],
     "status": {
-        "code": "pagamento_pendente",
-        "label": "Pagamento pendente",
+        "code": "11",
+        "label": "Aguardando o pagamento pelo Paypal",
         "type": "NEW"
     },
     "sync_status": "NOT_SYNCED",

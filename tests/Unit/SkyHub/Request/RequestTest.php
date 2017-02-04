@@ -47,7 +47,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	public function testGenerateUrl()
 	{
 		$request = new RequestConcrete($this->auth);
-		
+
 		$urlNoPathNoParam = $request->generateUrl();
 		$this->assertEquals('http://localhost:8000/resources', $urlNoPathNoParam);
 
@@ -81,11 +81,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('Val2', $resource->property2);
 		$this->assertEquals('Val3', $resource->property3);
 		$this->assertEquals('val41', $resource->property4->p1);
+	}
 
-		// $this->assertObjectHasAttribute('property1', $resource, $message = 'Attribute property1 not exist on resource.');
-		// $this->assertObjectHasAttribute('property2', $resource, $message = 'Attribute property2 not exist on resource.');
-		// $this->assertObjectHasAttribute('property3', $resource, $message = 'Attribute property3 not exist on resource.');
-		// $this->assertObjectHasAttribute('property4', $resource, $message = 'Attribute property4 not exist on resource.');
-		// $this->assertObjectHasAttribute('p1', $resource->property4->p1, $message = 'Attribute p1 not exist on resource->property4.');
+	public function testGetAuthFromRequest()
+	{
+		$request = new RequestConcrete($this->auth);
+		$this->assertEquals($this->auth, $request->getAuth());
 	}
 }
