@@ -98,8 +98,8 @@ abstract class Request implements RequestInterface
         // creates a request template, every request must have the auth headers
         $this->requestTemplate = HttpfulRequest::init()
             ->expectsJson()
-            ->addHeader('X-User-Email', $this->auth->getEmail())
-            ->addHeader('X-User-Token', $this->auth->getToken())
+            ->addHeader('x-user-email', $this->auth->getEmail())
+            ->addHeader('x-api-key', $this->auth->getToken())
         ;
 
         HttpfulRequest::ini($this->requestTemplate);
@@ -341,6 +341,15 @@ abstract class Request implements RequestInterface
      */
     protected function checkResponseErrors(HttpfulResponse $response)
     {
+
+        if ($response->code >= 200 && $response->code < 300) {
+            return;
+        }
+
+        if (!$response->body) {
+            return;
+        }
+
         switch ($response->code) {
             case 400: // Requisição mal-formada
                 throw new \SkyHub\Exception\MalformedRequestException($response->body->error);

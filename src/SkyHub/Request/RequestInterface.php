@@ -25,7 +25,7 @@ use SkyHub\Resource\ApiResource;
 
 interface RequestInterface
 {
-	const SKYHUB_BASE_API_ENDPOINT 	= 'https://in.skyhub.com.br';
+	const SKYHUB_BASE_API_ENDPOINT 	= 'https://api.skyhub.com.br';
 	const PAGE_PARAM_NAME 			= 'page';
 	const PER_PAGE_PARAM_NAME 		= 'per_page';
 
@@ -37,7 +37,7 @@ interface RequestInterface
 
 	/**
 	 * Sends a GET request
-	 * 
+	 *
 	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
 	 * @return Array|ApiResourceInterface Returns array of ApiResourceInterface instances or a ApiResourceInterface instance only
 	 */
@@ -45,7 +45,7 @@ interface RequestInterface
 
 	/**
 	 * Sends a POST request
-	 * 
+	 *
 	 * @param  ApiResourceInterface $resource The resource to be sent
 	 * @return void
 	 */
@@ -53,7 +53,7 @@ interface RequestInterface
 
 	/**
 	 * Sends a PUT request
-	 * 
+	 *
 	 * @param  ApiResourceInterface object with the new data to save
 	 * @return ApiResourceInterface The updated resource
 	 */
@@ -61,7 +61,7 @@ interface RequestInterface
 
 	/**
 	 * Sends a DELETE request
-	 * 
+	 *
 	 * @param  string|ApiResourceInterface $code String representing the resource code (ID) or the ApiResourceInterface instance with the code attribute set
 	 * @return void
 	 */
@@ -69,7 +69,7 @@ interface RequestInterface
 
 	/**
 	 * Converts a response from api to a resource object
-	 * 
+	 *
 	 * @param  mixed $response JSON response
 	 * @return ApiResourceInterface
 	 */
