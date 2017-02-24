@@ -98,9 +98,10 @@ abstract class Request implements RequestInterface
 
         // creates a request template, every request must have the auth headers
         $this->requestTemplate = HttpfulRequest::init()
+            ->followRedirects(true)
             ->mime(Mime::JSON)
-            ->addHeader('x-user-email', $this->auth->getEmail())
-            ->addHeader('x-api-key', $this->auth->getToken())
+            ->addHeader('X-User-Email', $this->auth->getEmail())
+            ->addHeader('X-Api-Key', $this->auth->getToken())
         ;
 
         HttpfulRequest::ini($this->requestTemplate);
@@ -132,7 +133,7 @@ abstract class Request implements RequestInterface
         $url = $this->generateUrl($code, $params);
 
         $response = \Httpful\Request::get($url)->send();
-
+        
         $this->checkResponseErrors($response);
 
         $resources = $this->responseToResources($response);
@@ -342,7 +343,6 @@ abstract class Request implements RequestInterface
      */
     protected function checkResponseErrors(HttpfulResponse $response)
     {
-
         if ($response->code >= 200 && $response->code < 300) {
             return;
         }
@@ -351,27 +351,34 @@ abstract class Request implements RequestInterface
             return;
         }
 
+        $message = '';
+        if (property_exists($response->body, 'error')) {
+            $message = $response->body->error;
+        } elseif (property_exists($response->body, 'message')) {
+            $message = $response->body->message;
+        }
+
         switch ($response->code) {
             case 400: // Requisição mal-formada
-                throw new \SkyHub\Exception\MalformedRequestException($response->body->error);
+                throw new \SkyHub\Exception\MalformedRequestException($message);
                 break;
             case 401: // Erro de autenticação
-                throw new \SkyHub\Exception\UnauthorizedException($response->body->error);
+                throw new \SkyHub\Exception\UnauthorizedException($message);
                 break;
             case 403: // Erro de autorização
-                throw new \SkyHub\Exception\ForbiddenException($response->body->error);
+                throw new \SkyHub\Exception\ForbiddenException($message);
                 break;
             case 404: // Recurso não encontrado
-                throw new \SkyHub\Exception\NotFoundException($response->body->error);
+                throw new \SkyHub\Exception\NotFoundException($message);
                 break;
             case 405: // Metodo não suportado
-                throw new \SkyHub\Exception\MethodNotAllowedException($response->body->error);
+                throw new \SkyHub\Exception\MethodNotAllowedException($message);
                 break;
             case 422: // Erro semântico
-                throw new \SkyHub\Exception\SemanticalErrorException($response->body->error);
+                throw new \SkyHub\Exception\SemanticalErrorException($message);
                 break;
             case 500: // Erro na API
-                throw new \SkyHub\Exception\SkyHubException($response->body->error);
+                throw new \SkyHub\Exception\SkyHubException($message);
                 break;
         }
     }

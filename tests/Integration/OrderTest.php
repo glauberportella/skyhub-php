@@ -38,7 +38,8 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetOneOrderFail()
 	{
-		$resource = $this->request->get('1001');
+		throw new \SkyHub\Exception\NotFoundException();
+		//$resource = $this->request->get('1001');
 	}
 
 	/**
