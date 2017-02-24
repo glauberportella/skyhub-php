@@ -30,6 +30,7 @@ use SkyHub\Exception\RequestException;
 use Httpful\Httpful;
 use Httpful\Request as HttpfulRequest;
 use Httpful\Response as HttpfulResponse;
+use Httpful\Mime;
 
 abstract class Request implements RequestInterface
 {
@@ -97,7 +98,7 @@ abstract class Request implements RequestInterface
 
         // creates a request template, every request must have the auth headers
         $this->requestTemplate = HttpfulRequest::init()
-            ->expectsJson()
+            ->mime(Mime::JSON)
             ->addHeader('x-user-email', $this->auth->getEmail())
             ->addHeader('x-api-key', $this->auth->getToken())
         ;
