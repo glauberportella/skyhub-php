@@ -86,7 +86,6 @@ abstract class Request implements RequestInterface
             CURLOPT_MAXREDIRS => RequestInterface::MAX_REDIRS,
             CURLOPT_TIMEOUT => RequestInterface::TIMEOUT,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTPHEADER => array(
                 'accept: application/json',
                 'content-type: application/json',
