@@ -27,11 +27,6 @@ use SkyHub\Exception\SkyHubException;
 use SkyHub\Exception\NotFoundException;
 use SkyHub\Exception\RequestException;
 
-use Httpful\Httpful;
-use Httpful\Request as HttpfulRequest;
-use Httpful\Response as HttpfulResponse;
-use Httpful\Mime;
-
 abstract class Request implements RequestInterface
 {
     /**
@@ -62,19 +57,7 @@ abstract class Request implements RequestInterface
      */
     protected $resourceClassName;
 
-    /**
-     * Request template
-     *
-     * @var \Httpful\Request A requet template
-     */
-    private $requestTemplate;
-
-    /**
-     * SkyHub json handler
-     *
-     * @var \SkyHub\Handler\JsonHandler
-     */
-    private $jsonHandler;
+    protected $curlHandler;
 
     /**
      * Child must return the specific endpoint
@@ -91,20 +74,31 @@ abstract class Request implements RequestInterface
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
+    }
 
-        $this->jsonHandler = new \SkyHub\Handlers\JsonHandler();
-        $this->jsonHandler->init(array());
-        Httpful::register(\Httpful\Mime::JSON, $this->jsonHandler);
+    protected function curlInit()
+    {
+        $this->curlHandler = curl_init();
+        // prepare auth headers on curl
+        curl_setopt_array($this->curlHandler, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => RequestInterface::MAX_REDIRS,
+            CURLOPT_TIMEOUT => RequestInterface::TIMEOUT,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTPHEADER => array(
+                'accept: application/json',
+                'content-type: application/json',
+                'x-api-key: '.$this->auth->getToken(),
+                'x-user-email: '.$this->auth->getEmail(),
+            ),
+        ));
+    }
 
-        // creates a request template, every request must have the auth headers
-        $this->requestTemplate = HttpfulRequest::init()
-            ->followRedirects(true)
-            ->mime(Mime::JSON)
-            ->addHeader('X-User-Email', $this->auth->getEmail())
-            ->addHeader('X-Api-Key', $this->auth->getToken())
-        ;
-
-        HttpfulRequest::ini($this->requestTemplate);
+    protected function curlClose()
+    {
+        curl_close($this->curlHandler);
     }
 
     /**
@@ -132,9 +126,23 @@ abstract class Request implements RequestInterface
 
         $url = $this->generateUrl($code, $params);
 
-        $response = \Httpful\Request::get($url)->send();
-        
-        $this->checkResponseErrors($response);
+        $this->curlInit();
+
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         $resources = $this->responseToResources($response);
 
@@ -145,7 +153,7 @@ abstract class Request implements RequestInterface
      * Saves a Resource
      *
      * @param  ApiResource $resource
-     * @return \Httpful\Response
+     * @return stdClass Response
      */
     public function post(ApiResource $resource)
     {
@@ -153,12 +161,23 @@ abstract class Request implements RequestInterface
 
         $body = $this->createPostBody($resource);
 
-        $response = \Httpful\Request::post($url)
-                ->body($body)
-                ->sendsJson()
-                ->send();
+        $this->curlInit();
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
 
-        $this->checkResponseErrors($response);
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         return $response;
     }
@@ -168,7 +187,7 @@ abstract class Request implements RequestInterface
      *
      * @param  mixed      $code     String code, or a ApiResourceInterface object with code field
      * @param  ApiResource $resource
-     * @return \Httpful\Response
+     * @return stdClass Response
      */
     public function put(ApiResource $resource)
     {
@@ -176,12 +195,24 @@ abstract class Request implements RequestInterface
 
         $url = $this->generateUrl($resource->{$idField});
         $body = $this->createPutBody($resource);
-        $response = \Httpful\Request::put($url)
-            ->body($body)
-            ->sendsJson()
-            ->send();
 
-        $this->checkResponseErrors($response);
+        $this->curlInit();
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
+
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         return $response;
     }
@@ -200,9 +231,23 @@ abstract class Request implements RequestInterface
         }
 
         $url = $this->generateUrl($code);
-        $response = \Httpful\Request::delete($url)->send();
 
-        $this->checkResponseErrors($response);
+        $this->curlInit();
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         return $response;
     }
@@ -210,19 +255,19 @@ abstract class Request implements RequestInterface
     /**
      * Transform a Response to a ApiResourceInterface
      *
-     * @param  \Httpful\Response $response
-     * @return ApiResourceInterface array
+     * @param  stdClass $response
+     * @return ApiResourceInterface array or instance
      */
-    public function responseToResources(\Httpful\Response $response)
+    public function responseToResources($response)
     {
         $resources = null;
 
-        if (!isset($response->body) || !$response->body)
+        if (!$response)
             return null;
 
-        if (is_array($response->body)) {
+        if (is_array($response)) {
             $resources = array();
-            foreach ($response->body as $data) {
+            foreach ($response as $data) {
                 $object = new $this->resourceClassName;
                 foreach ($data as $prop => $val) {
                     $object->$prop = $val;
@@ -231,7 +276,7 @@ abstract class Request implements RequestInterface
             }
         } else {
             $resources = new $this->resourceClassName;
-            foreach ($response->body as $prop => $val) {
+            foreach ($response as $prop => $val) {
                 $resources->$prop = $val;
             }
         }
@@ -341,24 +386,20 @@ abstract class Request implements RequestInterface
      * @param  HttpfulResponse $response The response to verify
      * @throws \SkyHub\Exception\SkyHubException according to response status code
      */
-    protected function checkResponseErrors(HttpfulResponse $response)
+    protected function checkResponseErrors($responseCode, $response)
     {
-        if ($response->code >= 200 && $response->code < 300) {
-            return;
-        }
-
-        if (!$response->body) {
+        if ($responseCode >= 200 && $responseCode < 300) {
             return;
         }
 
         $message = '';
-        if (property_exists($response->body, 'error')) {
-            $message = $response->body->error;
-        } elseif (property_exists($response->body, 'message')) {
-            $message = $response->body->message;
+        if (property_exists($response, 'error')) {
+            $message = $response->error;
+        } elseif (property_exists($response, 'message')) {
+            $message = $response->message;
         }
 
-        switch ($response->code) {
+        switch ($responseCode) {
             case 400: // Requisição mal-formada
                 throw new \SkyHub\Exception\MalformedRequestException($message);
                 break;
