@@ -16,8 +16,17 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 		$this->request = new \SkyHub\Request\OrderRequest($this->auth);
 	}
 
+	public function testGetOne()
+	{
+		$resource = $this->request->get(TEST_ORDER_CODE);
+		$this->assertInstanceOf('\SkyHub\Resource\Order', $resource);
+	}
+
 	public function testGet()
 	{
+		$resources = $this->request->get();
+		$this->assertTrue(is_array($resources));
+		/*
 		$resources = $this->request->get();
 		$this->assertTrue(is_array($resources) || $resources instanceof \SkyHub\Resource\Order, 'Resource is not an array or Order instance, maybe a SkyHub API invalid response on GET.');
 
@@ -31,6 +40,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 			)
 		));
 		$this->assertTrue(is_array($resources) || $resources instanceof \SkyHub\Resource\Order, 'Resource is not an array or Order instance, maybe a SkyHub API invalid response on GET.');
+		*/
 	}
 
 	/**
@@ -143,7 +153,7 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 		}
 
 		$order = new \SkyHub\Resource\Order();
-		
+
 		$order->channel = "Submarino";
 		$order->status = "11";
 		$order->items = array(

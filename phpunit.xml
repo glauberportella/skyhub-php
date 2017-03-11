@@ -2,6 +2,7 @@
   <php>
     <const name="SKYHUB_EMAIL" value="glauber.oculosecia@skyhub.com.br" />
     <const name="SKYHUB_TOKEN" value="2RDxTmtLWmxQPk2zR8x3" />
+    <const name="TEST_ORDER_CODE" value="Submarino-1489193272469" />
   </php>
 	<filter>
 	  <whitelist processUncoveredFilesFromWhitelist="true">
