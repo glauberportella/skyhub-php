@@ -1,5 +1,7 @@
 /vendor/
 /build/
+/tests/data/queue-delete.log
+/tests/data/queue.log
 
 ######################
 # ECLIPSE PDT
