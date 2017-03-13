@@ -1,11 +1,11 @@
 {
-    "code": "Submarino-1487934348726",
+    "code": "Submarino-1489422258757",
     "channel": "Submarino",
-    "placed_at": "2017-02-24T08:05:48-03:00",
-    "updated_at": "2017-02-24T08:05:48-03:00",
+    "placed_at": "2017-03-13T13:24:18-03:00",
+    "updated_at": "2017-03-13T13:24:18-03:00",
     "total_ordered": 869.36,
     "interest": 3.54,
-    "discount": null,
+    "discount": 0,
     "shipping_cost": 15.32,
     "shipping_method": "Correios PAC",
     "estimated_delivery": "2017-02-10T22:00:00-02:00",
@@ -44,8 +44,8 @@
     },
     "items": [
         {
-            "id": "sku-1487934344",
-            "product_id": "sku-1487934344",
+            "id": "sku-1489422258",
+            "product_id": "sku-1489422258",
             "name": "Produto de teste skyhub-php",
             "qty": 1,
             "original_price": 1000.5,
@@ -53,11 +53,11 @@
         }
     ],
     "status": {
-        "code": "2",
-        "label": "Pagamento aceito",
-        "type": "APPROVED"
+        "code": "11",
+        "label": "Aguardando o pagamento pelo Paypal",
+        "type": "NEW"
     },
-    "sync_status": "SYNCED",
+    "sync_status": "NOT_SYNCED",
     "invoices": [],
     "shipments": [],
     "payments": []

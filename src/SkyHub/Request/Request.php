@@ -99,9 +99,10 @@ abstract class Request implements RequestInterface
         // creates a request template, every request must have the auth headers
         $this->requestTemplate = HttpfulRequest::init()
             ->followRedirects(true)
-            ->mime(Mime::JSON)
             ->addHeader('X-User-Email', $this->auth->getEmail())
             ->addHeader('X-Api-Key', $this->auth->getToken())
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Content-Type', 'application/json')
         ;
 
         HttpfulRequest::ini($this->requestTemplate);
