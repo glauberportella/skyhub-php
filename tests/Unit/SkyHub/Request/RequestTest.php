@@ -29,19 +29,19 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	public function testApiSkyHubEndpointSuccessfully()
 	{
 		$attributes = new \SkyHub\Request\AttributeRequest($this->auth);
-		$this->assertEquals('https://in.skyhub.com.br/attributes', $attributes->endpoint());
+		$this->assertEquals('https://api.skyhub.com.br/attributes', $attributes->endpoint());
 
 		$categories = new \SkyHub\Request\CategoryRequest($this->auth);
-		$this->assertEquals('https://in.skyhub.com.br/categories', $categories->endpoint());
+		$this->assertEquals('https://api.skyhub.com.br/categories', $categories->endpoint());
 
 		$orders = new \SkyHub\Request\OrderRequest($this->auth);
-		$this->assertEquals('https://in.skyhub.com.br/orders', $orders->endpoint());
+		$this->assertEquals('https://api.skyhub.com.br/orders', $orders->endpoint());
 
 		$products = new \SkyHub\Request\ProductRequest($this->auth);
-		$this->assertEquals('https://in.skyhub.com.br/products', $products->endpoint());
+		$this->assertEquals('https://api.skyhub.com.br/products', $products->endpoint());
 
 		$statusTypes = new \SkyHub\Request\StatusTypeRequest($this->auth);
-		$this->assertEquals('https://in.skyhub.com.br/status_types', $statusTypes->endpoint());
+		$this->assertEquals('https://api.skyhub.com.br/status_types', $statusTypes->endpoint());
 	}
 
 	public function testGenerateUrl()
