@@ -25,7 +25,7 @@ use SkyHub\Resource\ApiResource;
 
 interface RequestInterface
 {
-	const SKYHUB_BASE_API_ENDPOINT 	= 'https://api.skyhub.com.br';
+	const SKYHUB_BASE_API_ENDPOINT 	= 'https://in.skyhub.com.br';
 	const PAGE_PARAM_NAME 			= 'page';
 	const PER_PAGE_PARAM_NAME 		= 'per_page';
 

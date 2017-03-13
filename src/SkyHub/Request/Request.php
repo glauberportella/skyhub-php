@@ -101,7 +101,7 @@ abstract class Request implements RequestInterface
             ->followRedirects(true)
             ->mime(Mime::JSON)
             ->addHeader('X-User-Email', $this->auth->getEmail())
-            ->addHeader('X-Api-Key', $this->auth->getToken())
+            ->addHeader('X-User-Token', $this->auth->getToken())
         ;
 
         HttpfulRequest::ini($this->requestTemplate);

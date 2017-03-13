@@ -53,11 +53,11 @@
         }
     ],
     "status": {
-        "code": "11",
-        "label": "Aguardando o pagamento pelo Paypal",
-        "type": "NEW"
+        "code": "2",
+        "label": "Pagamento aceito",
+        "type": "APPROVED"
     },
-    "sync_status": "NOT_SYNCED",
+    "sync_status": "SYNCED",
     "invoices": [],
     "shipments": [],
     "payments": []
