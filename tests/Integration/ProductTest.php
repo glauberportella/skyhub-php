@@ -16,62 +16,53 @@ class ProductTest extends \PHPUnit_Framework_Testcase
 		$this->request = new \SkyHub\Request\ProductRequest($this->auth);
 	}
 
-	/**
-	 * @depends testPost
-	 */
-	public function testDelete($resource)
+	public function testPostAndDelete()
 	{
+		$resource = TestProductFactory::factory();
+
 		try {
+			$this->request->post($resource);
 			$this->request->delete($resource);
-			$this->assertTrue(true);
 		} catch (\Exception $e) {
-			$this->fail($e->getMessage());
+			$this->fail('Product test POST and DELETE fail: '.$e->getMessage());
 		}
+
+		return $resource;
 	}
 
 	public function testGet()
 	{
 		$resources = $this->request->get();
 		$this->assertTrue(is_array($resources) || $resources instanceof \SkyHub\Resource\Product, 'Resource is not an array or Product instance, maybe a SkyHub API invalid response on GET.');
-
-		return $resources;
-	}
-	/**
-	 * @depends testPost
-	 */
-	public function testGetOneProduct($resourceIn)
-	{
-		$resource = $this->request->get($resourceIn->sku);
-		$this->assertInstanceOf('\SkyHub\Resource\Product', $resource, 'Not an instance of \SkyHub\Resource\Product.');
-
-		return $resource;
 	}
 
-	public function testPost()
+	public function testGetOneProduct()
 	{
-		$resource = TestProductFactory::factory();
+		$new = TestProductFactory::factory();
 
 		try {
-			$this->request->post($resource);
+			$this->request->post($new);
+			$resource = $this->request->get($new->sku);
+			$this->assertInstanceOf('\SkyHub\Resource\Product', $resource, 'Not an instance of \SkyHub\Resource\Product.');
+			
+			$this->request->delete($resource);
 		} catch (\Exception $e) {
 			$this->fail('Product test POST fail: '.$e->getMessage());
 		}
-
-		return $resource;
 	}
 
-	/**
-	 * @depends testGetOneProduct
-	 */
-	public function testPut($resource)
+	public function testPut()
 	{
 		try {
+			$new = TestProductFactory::factory();
+			$this->request->post($new);
+			// update data on product
 			$ts = time();
-			$resource->name = "Produto de teste skyhub-php";
-			$resource->description = "Teste lib PHP para API SkyHub - update - $ts";
-			$resource->status = $resource->status == "enabled" ? "disabled" : "enabled";
-			$resource->qty = 100;
-			$this->request->put($resource);
+			$new->name = "Produto de teste skyhub-php";
+			$new->description = "Teste lib PHP para API SkyHub - update - $ts";
+			$new->status = $new->status == "enabled" ? "disabled" : "enabled";
+			$new->qty = 100;
+			$this->request->put($new);
 		} catch (\Exception $e) {
 			$this->fail('PUT failed: '.$e->getMessage());
 		}
