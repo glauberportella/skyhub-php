@@ -25,9 +25,6 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 	public function testGet()
 	{
 		$resources = $this->request->get();
-		$this->assertTrue(is_array($resources));
-		/*
-		$resources = $this->request->get();
 		$this->assertTrue(is_array($resources) || $resources instanceof \SkyHub\Resource\Order, 'Resource is not an array or Order instance, maybe a SkyHub API invalid response on GET.');
 
 		$resources = $this->request->get(null, array(
@@ -40,7 +37,6 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 			)
 		));
 		$this->assertTrue(is_array($resources) || $resources instanceof \SkyHub\Resource\Order, 'Resource is not an array or Order instance, maybe a SkyHub API invalid response on GET.');
-		*/
 	}
 
 	/**

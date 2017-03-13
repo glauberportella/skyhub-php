@@ -85,11 +85,11 @@ abstract class Request implements RequestInterface
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => RequestInterface::MAX_REDIRS,
             CURLOPT_TIMEOUT => RequestInterface::TIMEOUT,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_0,
             CURLOPT_HTTPHEADER => array(
                 'accept: application/json',
                 'content-type: application/json',
-                'x-user-token: '.$this->auth->getToken(),
+                'x-api-key: '.$this->auth->getToken(),
                 'x-user-email: '.$this->auth->getEmail(),
             ),
         ));

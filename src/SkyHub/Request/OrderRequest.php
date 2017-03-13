@@ -84,29 +84,26 @@ class OrderRequest extends Request
 
         $url = $this->generateUrl($resource->{$idField}.'/approval');
 
-        $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
-                ->sendsJson()
-                ->send();
+        $this->curlInit();
 
-        $this->checkResponseErrors($response);
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'POST');
 
-        /*
-        $response = null;
+        $body = json_encode(array('status' => $resource->status));
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
 
-        try {
-            $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
-                ->sendsJson()
-                ->send();
-        } catch (\Exception $e) {
-            if ($e->getMessage() == 'Unable to parse response as JSON') {
-                // keep working
-            } else {
-                throw new RequestException($e->getMessage(), $e->getCode());
-            }
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
         }
-        */
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         return $response;
     }
@@ -121,29 +118,24 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/exported');
 
-        $response = \Httpful\Request::put($url)
-                ->body(json_encode(array('exported' => $resource->exported)))
-                ->sendsJson()
-                ->send();
+        $this->curlInit();
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'PUT');
+        $body = json_encode(array('exported' => $resource->exported));
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
 
-        $this->checkResponseErrors($response);
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
 
-        /*
-        $response = null;
-
-        try {
-            $response = \Httpful\Request::put($url)
-                ->body(json_encode(array('exported' => $resource->exported)))
-                ->sendsJson()
-                ->send();
-        } catch (\Exception $e) {
-            if ($e->getMessage() == 'Unable to parse response as JSON') {
-                // keep working
-            } else {
-                throw new RequestException($e->getMessage(), $e->getCode());
-            }
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
         }
-        */
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         return $response;
     }
@@ -154,34 +146,26 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/cancel');
 
-        $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
-                ->sendsJson()
-                ->send();
+        $this->curlInit();
 
-        $this->checkResponseErrors($response);
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'POST');
 
-        /*
-        $response = null;
+        $body = json_encode(array('status' => $resource->status));
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
 
-        // SkyHub API POST return no response or an empty response
-        // Httpful think it is an error so we catch the exception and proceed
-        // normally. 
-        // 
-        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
-        try {
-            $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
-                ->sendsJson()
-                ->send();
-        } catch (\Exception $e) {
-            if ($e->getMessage() == 'Unable to parse response as JSON') {
-                // keep working
-            } else {
-                throw new RequestException($e->getMessage(), $e->getCode());
-            }
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
         }
-        */
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
        
         return $response;
 	}
@@ -192,34 +176,26 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/delivery');
 
-        $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
-                ->sendsJson()
-                ->send();
-        
-        $this->checkResponseErrors($response);
+        $this->curlInit();
 
-        /*
-        $response = null;
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'POST');
 
-        // SkyHub API POST return no response or an empty response
-        // Httpful think it is an error so we catch the exception and proceed
-        // normally. 
-        // 
-        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
-        try {
-            $response = \Httpful\Request::post($url)
-                ->body(json_encode(array('status' => $resource->status)))
-                ->sendsJson()
-                ->send();
-        } catch (\Exception $e) {
-            if ($e->getMessage() == 'Unable to parse response as JSON') {
-                // keep working
-            } else {
-                throw new RequestException($e->getMessage(), $e->getCode());
-            }
+        $body = json_encode(array('status' => $resource->status));
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
+
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
         }
-        */
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
        
         return $response;
 	}
@@ -230,34 +206,26 @@ class OrderRequest extends Request
 
 		$url = $this->generateUrl($resource->{$idField}.'/shipments');
 
-        $response = \Httpful\Request::post($url)
-                ->body(json_encode($resource))
-                ->sendsJson()
-                ->send();
+        $this->curlInit();
 
-        $this->checkResponseErrors($response);
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'POST');
 
-        /*
-        $response = null;
+        $body = json_encode($resource);
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
 
-        // SkyHub API POST return no response or an empty response
-        // Httpful think it is an error so we catch the exception and proceed
-        // normally. 
-        // 
-        // TODO: Think how to deal with it or change it when SkyHub team change the response for a POST
-        try {
-            $response = \Httpful\Request::post($url)
-                ->body(json_encode($resource))
-                ->sendsJson()
-                ->send();
-        } catch (\Exception $e) {
-            if ($e->getMessage() == 'Unable to parse response as JSON') {
-                // keep working
-            } else {
-                throw new RequestException($e->getMessage(), $e->getCode());
-            }
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
         }
-        */
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         return $response;
 	}
@@ -268,11 +236,25 @@ class OrderRequest extends Request
         
         $url = $this->generateUrl($resource->{$idField}.'/invoice');
 
-        $response = \Httpful\Request::post($url)
-            ->body(json_encode($resource))
-            ->sendsJson()
-            ->send();
+        $this->curlInit();
 
-        $this->checkResponseErrors($response);
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'POST');
+
+        $body = json_encode($resource);
+        curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $body);
+
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
     }
 }
