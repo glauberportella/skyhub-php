@@ -87,8 +87,9 @@ abstract class Request implements RequestInterface
      * Construt a Request
      *
      * @param Auth $auth SkyHub Auth information to send on headers
+     * @param array $requestHeaders Additional headers to pass on request template
      */
-    public function __construct(Auth $auth)
+    public function __construct(Auth $auth, array $requestHeaders = array())
     {
         $this->auth = $auth;
 
@@ -97,7 +98,7 @@ abstract class Request implements RequestInterface
         Httpful::register(\Httpful\Mime::JSON, $this->jsonHandler);
 
         // creates a request template, every request must have the auth headers
-        $this->requestTemplate = $this->createRequestTemplate();
+        $this->requestTemplate = $this->createRequestTemplate($requestHeaders);
 
         HttpfulRequest::ini($this->requestTemplate);
     }
@@ -330,19 +331,33 @@ abstract class Request implements RequestInterface
         return json_encode($resource);
     }
 
-    protected function createRequestTemplate()
+    /**
+     * Factory method to create the request template on object construction
+     * 
+     * @param  array  $requestHeaders Additional headers, if any, use array('header' => 'value')
+     * @return HttpfulRequest to use as template
+     */
+    protected function createRequestTemplate(array $requestHeaders = array())
     {
         if (!$this->auth) {
             throw new \Exception('[\SkyHub\Request\Request] Informações de autenticação não estão presentes. Verifique se configurou o $auth no construtor.');
         }
 
-        return HttpfulRequest::init()
+        $template = HttpfulRequest::init()
             ->followRedirects(true)
             ->addHeader('X-User-Email', $this->auth->getEmail())
             ->addHeader('X-Api-Key', $this->auth->getToken())
             ->addHeader('Accept', 'application/json')
             ->addHeader('Content-Type', 'application/json')
         ;
+
+        if (count($requestHeaders)) {
+            foreach ($requestHeaders as $header => $value) {
+                $template->addHeader($header, $value);
+            }
+        }
+
+        return $template;
     }
 
     /**
