@@ -332,6 +332,16 @@ abstract class Request implements RequestInterface
     }
 
     /**
+     * Returns headers from request template
+     * 
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->requestTemplate->headers;
+    }
+
+    /**
      * Factory method to create the request template on object construction
      * 
      * @param  array  $requestHeaders Additional headers, if any, use array('header' => 'value')

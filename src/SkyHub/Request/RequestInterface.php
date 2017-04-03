@@ -76,4 +76,6 @@ interface RequestInterface
 	public function responseToResources(\Httpful\Response $response);
 
 	public function generateUrl($path = null, array $params = array());
+
+	public function getHeaders();
 }
