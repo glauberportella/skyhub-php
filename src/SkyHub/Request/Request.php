@@ -97,13 +97,7 @@ abstract class Request implements RequestInterface
         Httpful::register(\Httpful\Mime::JSON, $this->jsonHandler);
 
         // creates a request template, every request must have the auth headers
-        $this->requestTemplate = HttpfulRequest::init()
-            ->followRedirects(true)
-            ->addHeader('X-User-Email', $this->auth->getEmail())
-            ->addHeader('X-Api-Key', $this->auth->getToken())
-            ->addHeader('Accept', 'application/json')
-            ->addHeader('Content-Type', 'application/json')
-        ;
+        $this->requestTemplate = $this->createRequestTemplate();
 
         HttpfulRequest::ini($this->requestTemplate);
     }
@@ -336,6 +330,21 @@ abstract class Request implements RequestInterface
         return json_encode($resource);
     }
 
+    protected function createRequestTemplate()
+    {
+        if (!$this->auth) {
+            throw new \Exception('[\SkyHub\Request\Request] Informações de autenticação não estão presentes. Verifique se configurou o $auth no construtor.');
+        }
+
+        return HttpfulRequest::init()
+            ->followRedirects(true)
+            ->addHeader('X-User-Email', $this->auth->getEmail())
+            ->addHeader('X-Api-Key', $this->auth->getToken())
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Content-Type', 'application/json')
+        ;
+    }
+
     /**
      * Throw API exceptions based on response status code
      *
@@ -381,6 +390,8 @@ abstract class Request implements RequestInterface
             case 500: // Erro na API
                 throw new \SkyHub\Exception\SkyHubException($message);
                 break;
+            default:
+                throw new \SkyHub\Exception\SkyHubException('Erro desconhecido.');
         }
     }
 }

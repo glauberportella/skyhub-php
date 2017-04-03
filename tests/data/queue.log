@@ -1,60 +1,60 @@
 {
-    "code": "Submarino-1489417569278",
+    "code": "Submarino-1490106221893",
     "channel": "Submarino",
-    "placed_at": "2017-03-13T12:06:09-03:00",
-    "updated_at": "2017-03-13T12:06:09-03:00",
-    "total_ordered": 869.36,
-    "interest": 3.54,
+    "placed_at": "2017-03-21T11:23:41-03:00",
+    "updated_at": "2017-03-21T11:23:41-03:00",
+    "total_ordered": 112.1,
+    "interest": 0,
     "discount": 0,
-    "shipping_cost": 15.32,
+    "shipping_cost": 16.2,
     "shipping_method": "Correios PAC",
-    "estimated_delivery": "2017-02-10T22:00:00-02:00",
+    "estimated_delivery": "2017-03-27T21:00:00-03:00",
     "estimated_delivery_shift": null,
     "shipping_address": {
-        "full_name": "Glauber Portella",
-        "street": "Rua Sacadura Cabral",
-        "number": "130",
+        "full_name": "Glauber",
+        "street": "Rua Teste",
+        "number": "123",
         "detail": "",
         "neighborhood": "Centro",
-        "city": "Rio de Janeiro",
-        "region": "RJ",
+        "city": "Belo Horizonte",
+        "region": "MG",
         "country": "BR",
         "postcode": null
     },
     "billing_address": {
-        "full_name": "Glauber Portella",
-        "street": "Rua Sacadura Cabral",
-        "number": "130",
+        "full_name": "Glauber",
+        "street": "Rua Teste",
+        "number": "123",
         "detail": "",
         "neighborhood": "Centro",
-        "city": "Rio de Janeiro",
-        "region": "RJ",
+        "city": "Belo Horizonte",
+        "region": "MG",
         "country": "BR",
         "postcode": null
     },
     "customer": {
-        "name": "Glauber Portella",
-        "email": "exemplo@skyhub.com.br",
-        "date_of_birth": "1998-01-25",
+        "name": "Glauber",
+        "email": "glauberportella@gmail.com",
+        "date_of_birth": "1982-01-12",
         "gender": "male",
-        "vat_number": "78732371683",
+        "vat_number": "05771095613",
         "phones": [
-            "21 3722-3902"
+            "31 99246-8610"
         ]
     },
     "items": [
         {
-            "id": "sku-1489417563",
-            "product_id": "sku-1489417563",
-            "name": "Produto de teste skyhub-php",
+            "id": "123456789",
+            "product_id": "123456789",
+            "name": "Test Product",
             "qty": 1,
-            "original_price": 1000.5,
-            "special_price": 850.5
+            "original_price": 100.5,
+            "special_price": 95.9
         }
     ],
     "status": {
-        "code": "11",
-        "label": "Aguardando o pagamento pelo Paypal",
+        "code": "15",
+        "label": "Aguardando pagamento por boleto",
         "type": "NEW"
     },
     "sync_status": "NOT_SYNCED",
