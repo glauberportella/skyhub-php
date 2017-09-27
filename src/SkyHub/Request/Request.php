@@ -386,37 +386,34 @@ abstract class Request implements RequestInterface
             return;
         }
 
-        $message = '';
-        if (property_exists($response->body, 'error')) {
-            $message = $response->body->error;
-        } elseif (property_exists($response->body, 'message')) {
-            $message = $response->body->message;
-        }
-
         switch ($response->code) {
             case 400: // Requisição mal-formada
-                throw new \SkyHub\Exception\MalformedRequestException($message);
+                throw new \SkyHub\Exception\MalformedRequestException();
                 break;
             case 401: // Erro de autenticação
-                throw new \SkyHub\Exception\UnauthorizedException($message);
+                throw new \SkyHub\Exception\UnauthorizedException();
                 break;
             case 403: // Erro de autorização
-                throw new \SkyHub\Exception\ForbiddenException($message);
+                throw new \SkyHub\Exception\ForbiddenException();
                 break;
             case 404: // Recurso não encontrado
-                throw new \SkyHub\Exception\NotFoundException($message);
+                throw new \SkyHub\Exception\NotFoundException();
                 break;
             case 405: // Metodo não suportado
-                throw new \SkyHub\Exception\MethodNotAllowedException($message);
+                throw new \SkyHub\Exception\MethodNotAllowedException();
                 break;
             case 422: // Erro semântico
-                throw new \SkyHub\Exception\SemanticalErrorException($message);
+                throw new \SkyHub\Exception\SemanticalErrorException();
                 break;
             case 500: // Erro na API
-                throw new \SkyHub\Exception\SkyHubException($message);
+                throw new \SkyHub\Exception\SkyHubException();
                 break;
             default:
-                throw new \SkyHub\Exception\SkyHubException('Erro desconhecido.');
+                $message = '';
+                if (property_exists($response->body, 'error')) {
+                    $message = $response->body->error;
+                }
+                throw new \SkyHub\Exception\SkyHubException('Erro desconhecido. '.$message);
         }
     }
 }

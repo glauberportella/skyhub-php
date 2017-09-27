@@ -34,16 +34,17 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 	{
 		$ts = time();
 		$code = "CatTest-$ts";
-		$name = "Test category skyhub-php library - $ts";
+		$name = "Test category $ts";
 
 		try {
 			$resource = new Category();
 			$resource->code = $code;
 			$resource->name = $name;
-			$this->request->post($resource);			
+			$this->request->post($resource);
 			$resources = $this->request->get();
 			$this->assertTrue(count($resources) > 1);
 		} catch (\Exception $e) {
+			file_put_contents('teste.log', json_encode($e));
 			$this->fail($e->getMessage());
 		}
 
