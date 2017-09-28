@@ -1,14 +1,14 @@
 {
-    "code": "Submarino-1490105994982",
+    "code": "Submarino-1505756520710",
     "channel": "Submarino",
-    "placed_at": "2017-03-21T11:19:54-03:00",
-    "updated_at": "2017-03-21T11:19:54-03:00",
+    "placed_at": "2017-09-18T14:42:00-03:00",
+    "updated_at": "2017-09-18T14:42:00-03:00",
     "total_ordered": 112.1,
     "interest": 0,
     "discount": 0,
     "shipping_cost": 16.2,
     "shipping_method": "Correios PAC",
-    "estimated_delivery": "2017-03-27T21:00:00-03:00",
+    "estimated_delivery": "2017-09-24T21:00:00-03:00",
     "estimated_delivery_shift": null,
     "shipping_address": {
         "full_name": "Glauber",
@@ -19,7 +19,9 @@
         "city": "Belo Horizonte",
         "region": "MG",
         "country": "BR",
-        "postcode": null
+        "postcode": null,
+        "phone": "31 99246-8610",
+        "secondary_phone": null
     },
     "billing_address": {
         "full_name": "Glauber",
@@ -30,7 +32,9 @@
         "city": "Belo Horizonte",
         "region": "MG",
         "country": "BR",
-        "postcode": null
+        "postcode": null,
+        "phone": "31 99246-8610",
+        "secondary_phone": null
     },
     "customer": {
         "name": "Glauber",
