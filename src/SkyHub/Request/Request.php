@@ -129,7 +129,7 @@ abstract class Request implements RequestInterface
         $url = $this->generateUrl($code, $params);
 
         $response = \Httpful\Request::get($url)->send();
-        
+
         $this->checkResponseErrors($response);
 
         $resources = $this->responseToResources($response);
@@ -151,7 +151,7 @@ abstract class Request implements RequestInterface
 
         $response = \Httpful\Request::post($url)
                 ->body($body)
-                ->sendsJson()
+                ->contentType('application/json')
                 ->send();
 
         $this->checkResponseErrors($response);
@@ -176,6 +176,11 @@ abstract class Request implements RequestInterface
             ->body($body)
             ->sendsJson()
             ->send();
+
+        error_log(sprintf("[REQUEST %s]\r\n%s\r\n", date('Y-m-d H:i:s'), $response->request->raw_headers), 3, __DIR__.'/requests.log');
+        error_log($response->request->payload, 3, __DIR__.'/requests.log');
+        error_log(sprintf("\r\n\r\n[RESPONSE %s]\r\n%s\r\n", date('Y-m-d H:i:s'), $response->raw_headers), 3, __DIR__.'/requests.log');
+        error_log($response->raw_body, 3, __DIR__.'/requests.log');
 
         $this->checkResponseErrors($response);
 
@@ -333,7 +338,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Returns headers from request template
-     * 
+     *
      * @return array
      */
     public function getHeaders()
@@ -343,7 +348,7 @@ abstract class Request implements RequestInterface
 
     /**
      * Factory method to create the request template on object construction
-     * 
+     *
      * @param  array  $requestHeaders Additional headers, if any, use array('header' => 'value')
      * @return HttpfulRequest to use as template
      */
