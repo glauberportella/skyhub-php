@@ -60,6 +60,11 @@ abstract class Request implements RequestInterface
     protected $curlHandler;
 
     /**
+     * @var array
+     */
+    protected $extraHeaders;
+
+    /**
      * Child must return the specific endpoint
      *
      * @return string
@@ -70,15 +75,31 @@ abstract class Request implements RequestInterface
      * Construt a Request
      *
      * @param Auth $auth SkyHub Auth information to send on headers
+     * @param array $requestHeaders Additional headers
      */
-    public function __construct(Auth $auth)
+    public function __construct(Auth $auth, array $requestHeaders = array())
     {
         $this->auth = $auth;
+        $this->extraHeaders = $requestHeaders;
     }
 
     protected function curlInit()
     {
         $this->curlHandler = curl_init();
+
+        $headers = array(
+            'accept: application/json',
+            'content-type: application/json',
+            'x-api-key: '.$this->auth->getToken(),
+            'x-user-email: '.$this->auth->getEmail(),
+        );
+
+        if (count($this->extraHeaders)) {
+            foreach ($this->extraHeaders as $header => $value) {
+                $headers[] = sprintf('%s: %s', $header, $value);
+            }
+        }
+
         // prepare auth headers on curl
         curl_setopt_array($this->curlHandler, array(
             CURLOPT_RETURNTRANSFER => true,
@@ -86,12 +107,7 @@ abstract class Request implements RequestInterface
             CURLOPT_MAXREDIRS => RequestInterface::MAX_REDIRS,
             CURLOPT_TIMEOUT => RequestInterface::TIMEOUT,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_0,
-            CURLOPT_HTTPHEADER => array(
-                'accept: application/json',
-                'content-type: application/json',
-                'x-api-key: '.$this->auth->getToken(),
-                'x-user-email: '.$this->auth->getEmail(),
-            ),
+            CURLOPT_HTTPHEADER => $headers,
         ));
     }
 
