@@ -63,10 +63,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$request = new RequestConcrete($this->auth);
 
-		$mockResponse = $this->getMockBuilder('\stdClass')
-			->disableOriginalConstructor()
-			->getMock();
-
 		$mockResponse = json_decode(json_encode(array(
 			'property1' => 'Val1',
 			'property2' => 'Val2',
