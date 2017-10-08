@@ -14,9 +14,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "nategood/httpful": "^0.2.20"
-    },
+    "require": {},
     "autoload": {
         "psr-4": {
             "": "src/",
