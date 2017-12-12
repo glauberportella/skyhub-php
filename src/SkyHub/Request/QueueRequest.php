@@ -23,6 +23,7 @@ namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
 use SkyHub\Exception\MethodNotAllowedException;
+use SkyHub\Exception\RequestException;
 
 class QueueRequest extends Request
 {
