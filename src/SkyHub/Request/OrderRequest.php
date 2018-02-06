@@ -257,4 +257,81 @@ class OrderRequest extends Request
 
         $this->checkResponseErrors($responseCode, $response);
     }
+
+    /**
+     * Get order shipment labels (if exists)
+     * 
+     * @param  ApiResource $resource The order ApiResource
+     * @param  string      $accepet  According to shipment service used B2W Entregas or Mercado Envios 2
+     *                               B2WEntregas allows:
+     *                                   - application/pdf
+     *                                   - application/json
+     *                               Mercado Envios 2 allows:
+     *                                   - application/pdf
+     *                                   - application/zip
+     * @param  array       $extraHeaders    Headers to add to this specific request
+     * @return mixed                The shipment label resource requested
+     */
+    public function getShipmentLabels(ApiResource $resource, $accept = 'application/pdf', $extraHeaders = array())
+    {
+        $idField = $resource->getIdField();
+        $url = $this->generateUrl($resource->{$idField}.'/shipment_labels');
+        
+        $this->curlInit();
+        // overwrite headers
+        $headers = array(
+            'accept: '.$accept,
+            'content-type: application/json',
+            'x-api-key: '.$this->auth->getToken(),
+            'x-user-email: '.$this->auth->getEmail(),
+        );
+        if (count($extraHeaders)) {
+            foreach ($extraHeaders as $header => $value) {
+                $headers[] = sprintf('%s: %s', $header, $value);
+            }
+        }
+
+        // specific curl
+        curl_setopt_array($this->curlHandler, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => RequestInterface::MAX_REDIRS,
+            CURLOPT_TIMEOUT => RequestInterface::TIMEOUT,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_HTTPHEADER => $headers,
+        ));
+
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        $response = curl_exec($this->curlHandler);
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        try {
+            $this->checkResponseErrors($responseCode, $response);
+        } catch (\SkyHub\Exception\NotFoundException $notFound) {
+            return array(
+                'error' => $notFound->getMessage(),
+            );
+        } catch (\SkyHub\Exception\SkyHubException $serverError) {
+            return array(
+                'error' => $serverError->getMessage(),
+            );
+        }
+
+        // else return response data
+        if ($accept === 'application/json') {
+            return json_decode($response);
+        }
+
+        return $response;
+    }
 }

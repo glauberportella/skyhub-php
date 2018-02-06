@@ -205,4 +205,16 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 			$this->fail('Product test DELETE fail: '.$e->getMessage());
 		}
 	}
+
+	public function testOneShipmentLabel()
+	{
+		$auth = new \SkyHub\Security\Auth('alexandre@allsportsstore.com.br', 'TT6xqpSopxeBsxP9wUNh');
+		$request = new \SkyHub\Request\OrderRequest($auth);
+		$order = new \SkyHub\Resource\Order();
+		$order->code = 'Lojas Americanas-266054655601';
+		$response = $request->getShipmentLabels($order, 'application/pdf', array(
+			'x-accountmanager-key' => '2s6rSF7zqe',
+		));
+		var_dump($response);
+	}
 }
