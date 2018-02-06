@@ -113,7 +113,7 @@ class OrderRequest extends Request
     	if (!isset($resource->exported)) {
             $resource->exported = false;
         }
-    	
+
     	$idField = $resource->getIdField();
 
 		$url = $this->generateUrl($resource->{$idField}.'/exported');
@@ -166,7 +166,7 @@ class OrderRequest extends Request
         $this->curlClose();
 
         $this->checkResponseErrors($responseCode, $response);
-       
+
         return $response;
 	}
 
@@ -196,7 +196,7 @@ class OrderRequest extends Request
         $this->curlClose();
 
         $this->checkResponseErrors($responseCode, $response);
-       
+
         return $response;
 	}
 
@@ -233,7 +233,7 @@ class OrderRequest extends Request
     public function invoice(ApiResource $resource)
     {
         $idField = $resource->getIdField();
-        
+
         $url = $this->generateUrl($resource->{$idField}.'/invoice');
 
         $this->curlInit();
@@ -260,7 +260,7 @@ class OrderRequest extends Request
 
     /**
      * Get order shipment labels (if exists)
-     * 
+     *
      * @param  ApiResource $resource The order ApiResource
      * @param  string      $accepet  According to shipment service used B2W Entregas or Mercado Envios 2
      *                               B2WEntregas allows:
@@ -276,7 +276,7 @@ class OrderRequest extends Request
     {
         $idField = $resource->getIdField();
         $url = $this->generateUrl($resource->{$idField}.'/shipment_labels');
-        
+
         $this->curlInit();
         // overwrite headers
         $headers = array(
@@ -315,23 +315,9 @@ class OrderRequest extends Request
 
         $this->curlClose();
 
-        try {
-            $this->checkResponseErrors($responseCode, $response);
-        } catch (\SkyHub\Exception\NotFoundException $notFound) {
-            return array(
-                'error' => $notFound->getMessage(),
-            );
-        } catch (\SkyHub\Exception\SkyHubException $serverError) {
-            return array(
-                'error' => $serverError->getMessage(),
-            );
-        }
+        $this->checkResponseErrors($responseCode, $response);
 
-        // else return response data
-        if ($accept === 'application/json') {
-            return json_decode($response);
-        }
-
+        // return response data
         return $response;
     }
 }
