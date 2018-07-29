@@ -79,6 +79,4 @@ interface RequestInterface
 	public function responseToResources($response);
 
 	public function generateUrl($path = null, array $params = array());
-
-	public function getHeaders();
 }

@@ -84,15 +84,4 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		$request = new RequestConcrete($this->auth);
 		$this->assertEquals($this->auth, $request->getAuth());
 	}
-
-	public function testGetHeaders()
-	{
-		$request = new RequestConcrete($this->auth);
-		$headers = $request->getHeaders();
-		$this->assertTrue(count($headers) > 0);
-		$this->assertTrue(array_key_exists('X-User-Email', $headers));
-		$this->assertTrue(array_key_exists('X-Api-Key', $headers));
-		$this->assertTrue(array_key_exists('Accept', $headers));
-		$this->assertTrue(array_key_exists('Content-Type', $headers));
-	}
 }
