@@ -29,6 +29,9 @@ interface RequestInterface
 	const PAGE_PARAM_NAME 			= 'page';
 	const PER_PAGE_PARAM_NAME 		= 'per_page';
 
+	const MAX_REDIRS = 10;
+	const TIMEOUT = 30;
+
 	/**
 	 * Returns an API endpoint URL
 	 * @return [type] [description]
@@ -73,7 +76,7 @@ interface RequestInterface
 	 * @param  mixed $response JSON response
 	 * @return ApiResourceInterface
 	 */
-	public function responseToResources(\Httpful\Response $response);
+	public function responseToResources($response);
 
 	public function generateUrl($path = null, array $params = array());
 

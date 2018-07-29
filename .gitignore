@@ -2,7 +2,8 @@
 /build/
 /tests/data/queue-delete.log
 /tests/data/queue.log
-
+/node_modules
+/dist
 ######################
 # ECLIPSE PDT
 ######################

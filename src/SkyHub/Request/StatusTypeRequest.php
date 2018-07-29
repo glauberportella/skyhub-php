@@ -37,24 +37,24 @@ class StatusTypeRequest extends Request
      * Transform a Response to a ApiResourceInterface
      * 
      * @override
-     * @param  \Httpful\Response $response
+     * @param  stdClass $response
      * @return ApiResourceInterface array
      */
-    public function responseToResources(\Httpful\Response $response)
+    public function responseToResources($response)
     {
         $resources = null;
 
-        if (is_array($response->body)) {
+        if (is_array($response)) {
             $object = new $this->resourceClassName;
             $types = array();
-            foreach ($response->body as $data) {
+            foreach ($response as $data) {
                 $types[] = $data;
             }
             $object->types = $types;
             $resources[] = $object;
         } else {
             $resources = new $this->resourceClassName;
-            foreach ($response->body as $prop => $val) {
+            foreach ($response as $prop => $val) {
                 $resources->$prop = $val;
             }
         }

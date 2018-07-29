@@ -1,0 +1,36 @@
+{
+  "name": "skyhub-php",
+  "version": "1.0.0",
+  "description": "PHP Library for SkyHub.com.br API",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-composer": "^0.4.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glauberportella/skyhub-php.git"
+  },
+  "keywords": [
+    "skyhub",
+    "marketplace",
+    "integration",
+    "php",
+    "library"
+  ],
+  "author": "Glauber Portella <glauberportella@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glauberportella/skyhub-php/issues"
+  },
+  "homepage": "https://github.com/glauberportella/skyhub-php#readme"
+}

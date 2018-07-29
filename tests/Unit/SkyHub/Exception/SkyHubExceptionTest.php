@@ -4,6 +4,13 @@ namespace Tests\Unit\SkyHub\Exception;
 
 class SkyHubExceptionTest extends \PHPUnit_Framework_TestCase
 {
+	public function testCustomMessageOnException()
+	{
+		$exception = new \SkyHub\Exception\SkyHubException('Mensagem de teste.');
+		$this->assertInstanceOf('\SkyHub\Exception\SkyHubException', $exception);
+		$this->assertEquals('Mensagem de teste.', $exception->getMessage());
+	}
+
 	public function testJsonSerializableShouldWorks()
 	{
 		$exception = new \SkyHub\Exception\ForbiddenException();

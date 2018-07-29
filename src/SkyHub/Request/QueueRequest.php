@@ -23,6 +23,7 @@ namespace SkyHub\Request;
 
 use SkyHub\Resource\ApiResource;
 use SkyHub\Exception\MethodNotAllowedException;
+use SkyHub\Exception\RequestException;
 
 class QueueRequest extends Request
 {
@@ -37,9 +38,23 @@ class QueueRequest extends Request
     {
         $url = $this->generateUrl(null, array());
 
-        $response = \Httpful\Request::get($url)->send();
+        $this->curlInit();
 
-        $this->checkResponseErrors($response);
+        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
+        curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        $response = json_decode(curl_exec($this->curlHandler));
+        $responseCode = curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
+
+        $curlError = curl_error($this->curlHandler);
+        $curlErrorNo = curl_errno($this->curlHandler);
+        if ($curlError) {
+            throw new RequestException(sprintf('[%s] %s', $curlErrorNo, $curlError));
+        }
+
+        $this->curlClose();
+
+        $this->checkResponseErrors($responseCode, $response);
 
         $resources = $this->responseToResources($response);
 

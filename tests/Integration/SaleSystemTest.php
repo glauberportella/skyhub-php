@@ -24,7 +24,7 @@ class SaleSystemTest extends \PHPUnit_Framework_TestCase
 	public function testGet()
 	{
 		$resources = $this->request->get();
-		$this->assertTrue(is_array($resources));
+		$this->assertTrue(is_array($resources) || $resources instanceof \SkyHub\Resource\SaleSystem);
 	}
 
 	/**
