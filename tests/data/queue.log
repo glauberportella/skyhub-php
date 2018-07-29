@@ -1,68 +1,82 @@
 {
-    "code": "Submarino-1505756520710",
-    "channel": "Submarino",
-    "placed_at": "2017-09-18T14:42:00-03:00",
-    "updated_at": "2017-09-18T14:42:00-03:00",
-    "total_ordered": 112.1,
-    "interest": 0,
-    "discount": 0,
-    "shipping_cost": 16.2,
+    "updated_at": "2018-07-23T12:56:01-03:00",
+    "total_ordered": 869.36,
+    "tags": [],
+    "sync_status": "NOT_SYNCED",
+    "status": {
+        "type": "NEW",
+        "label": "Aguardando o pagamento pelo Paypal",
+        "code": "11"
+    },
     "shipping_method": "Correios PAC",
-    "estimated_delivery": "2017-09-24T21:00:00-03:00",
-    "estimated_delivery_shift": null,
+    "shipping_cost": 15.32,
+    "shipping_carrier": "",
     "shipping_address": {
-        "full_name": "Glauber",
-        "street": "Rua Teste",
-        "number": "123",
-        "detail": "",
-        "neighborhood": "Centro",
-        "city": "Belo Horizonte",
-        "region": "MG",
-        "country": "BR",
+        "street": "Rua Sacadura Cabral",
+        "secondary_phone": null,
+        "region": "RJ",
+        "reference": null,
         "postcode": null,
-        "phone": "31 99246-8610",
-        "secondary_phone": null
-    },
-    "billing_address": {
-        "full_name": "Glauber",
-        "street": "Rua Teste",
-        "number": "123",
-        "detail": "",
+        "phone": "21 3722-3902",
+        "number": "130",
         "neighborhood": "Centro",
-        "city": "Belo Horizonte",
-        "region": "MG",
+        "full_name": "Glauber Portella",
+        "detail": "",
         "country": "BR",
-        "postcode": null,
-        "phone": "31 99246-8610",
-        "secondary_phone": null
+        "complement": null,
+        "city": "Rio de Janeiro"
     },
-    "customer": {
-        "name": "Glauber",
-        "email": "glauberportella@gmail.com",
-        "date_of_birth": "1982-01-12",
-        "gender": "male",
-        "vat_number": "05771095613",
-        "phones": [
-            "31 99246-8610"
-        ]
-    },
+    "shipped_date": "",
+    "shipments": [],
+    "placed_at": "2018-07-23T12:56:01-03:00",
+    "payments": [],
     "items": [
         {
-            "id": "123456789",
-            "product_id": "123456789",
-            "name": "Test Product",
+            "special_price": 850.5,
             "qty": 1,
-            "original_price": 100.5,
-            "special_price": 95.9
+            "product_id": "sku-1532361360",
+            "original_price": 1000.5,
+            "name": "Produto de teste skyhub-php",
+            "id": "sku-1532361360"
         }
     ],
-    "status": {
-        "code": "15",
-        "label": "Aguardando pagamento por boleto",
-        "type": "NEW"
-    },
-    "sync_status": "NOT_SYNCED",
     "invoices": [],
-    "shipments": [],
-    "payments": []
+    "interest": 3.54,
+    "import_info": {
+        "ss_name": "Submarino",
+        "remote_id": null,
+        "remote_code": "1532361361839"
+    },
+    "estimated_delivery_shift": null,
+    "estimated_delivery": "2017-02-10T22:00:00-02:00",
+    "discount": 0,
+    "customer": {
+        "vat_number": "78732371683",
+        "phones": [
+            "21 3722-3902"
+        ],
+        "name": "Glauber Portella",
+        "gender": "male",
+        "email": "exemplo@skyhub.com.br",
+        "date_of_birth": "1998-01-25"
+    },
+    "code": "Submarino-1532361361839",
+    "channel": "Submarino",
+    "calculation_type": null,
+    "billing_address": {
+        "street": "Rua Sacadura Cabral",
+        "secondary_phone": null,
+        "region": "RJ",
+        "reference": null,
+        "postcode": null,
+        "phone": "21 3722-3902",
+        "number": "130",
+        "neighborhood": "Centro",
+        "full_name": "Glauber Portella",
+        "detail": "",
+        "country": "BR",
+        "complement": null,
+        "city": "Rio de Janeiro"
+    },
+    "approved_date": ""
 }
