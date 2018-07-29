@@ -108,6 +108,7 @@ abstract class Request implements RequestInterface
             CURLOPT_TIMEOUT => RequestInterface::TIMEOUT,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_0,
             CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_SSL_VERIFYPEER => false,
         ));
     }
 
