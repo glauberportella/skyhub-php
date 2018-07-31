@@ -277,7 +277,9 @@ You can also use a Resource object instance to get the request object
 
 # TODO
 
-1. Add others API resources (Variations, Freights)
+1. Add others API resources
+	- Questions
+	- Sync Errors
 
 # The MIT License (MIT)
 
