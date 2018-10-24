@@ -1,8 +1,14 @@
 [![Code Climate](https://codeclimate.com/github/glauberportella/skyhub-php/badges/gpa.svg)](https://codeclimate.com/github/glauberportella/skyhub-php) [![Test Coverage](https://codeclimate.com/github/glauberportella/skyhub-php/badges/coverage.svg)](https://codeclimate.com/github/glauberportella/skyhub-php/coverage)
 
-#A PHP Library for SkyHub API
+# A PHP Library for SkyHub API
 
 The purpose of this lib is to create an abstracted layer to facilitate the use of [SkyHub API](http://www.skyhub.com.br) by PHP developers.
+
+# Requirements
+
+- PHP 5.6+
+- PHP Multibyte String Extension installed and active
+- PHP cURL extension installed and active
 
 # How to Install
 
@@ -59,6 +65,10 @@ The library has the following classes
 ### Security
 
 - \SkyHub\Security\Auth
+
+### Utils
+
+- \SkyHub\Utils\JsonUtils - contains a safe json encoding routine, based on Multibyte String charset converter
 
 # Documentation
 
@@ -277,7 +287,9 @@ You can also use a Resource object instance to get the request object
 
 # TODO
 
-1. Add others API resources (Variations, Freights)
+1. Add others API resources
+	- Questions
+	- Sync Errors
 
 # The MIT License (MIT)
 
