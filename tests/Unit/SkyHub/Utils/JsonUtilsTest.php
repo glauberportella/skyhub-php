@@ -14,7 +14,7 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase
 
         $encoded = JsonUtils::safe_json_encode($product);
         // you can save a file to check later the encode
-        //file_put_contents(dirname(__FILE__).'/../../../data/safe_json_encode_test.txt', $encoded);
+        // file_put_contents(dirname(__FILE__).'/../../../data/safe_json_encode_test.txt', $encoded);
         // only verify if encoding was fine
         $this->assertTrue(false !== $encoded);
     }

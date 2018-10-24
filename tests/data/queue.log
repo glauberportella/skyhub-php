@@ -1,5 +1,5 @@
 {
-    "updated_at": "2018-10-12T13:34:34-03:00",
+    "updated_at": "2018-10-12T18:49:36-03:00",
     "total_ordered": 869.36,
     "tags": [],
     "sync_status": "NOT_SYNCED",
@@ -28,17 +28,17 @@
     },
     "shipped_date": "",
     "shipments": [],
-    "placed_at": "2018-10-12T13:34:34-03:00",
+    "placed_at": "2018-10-12T18:49:36-03:00",
     "payments": [],
     "items": [
         {
             "special_price": 850.5,
             "shipping_cost": null,
             "qty": 1,
-            "product_id": "sku-1539362072",
+            "product_id": "sku-1539380974",
             "original_price": 1000.5,
             "name": "Produto de teste skyhub-php",
-            "id": "sku-1539362072"
+            "id": "sku-1539380974"
         }
     ],
     "invoices": [],
@@ -46,7 +46,7 @@
     "import_info": {
         "ss_name": "Submarino",
         "remote_id": null,
-        "remote_code": "1539362074011"
+        "remote_code": "1539380976688"
     },
     "estimated_delivery_shift": null,
     "estimated_delivery": "2017-02-10T22:00:00-02:00",
@@ -61,7 +61,7 @@
         "email": "exemplo@skyhub.com.br",
         "date_of_birth": "1998-01-25"
     },
-    "code": "Submarino-1539362074011",
+    "code": "Submarino-1539380976688",
     "channel": "Submarino",
     "calculation_type": null,
     "billing_address": {

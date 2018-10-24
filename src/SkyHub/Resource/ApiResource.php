@@ -67,8 +67,8 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 
 	public function jsonSerialize()
 	{
-		$this->data = $this->utf8_converter($this->data);
-		return $this->data;
+		$utf8EncodedData = $this->array_utf8_converter($this->data);
+		return $utf8EncodedData;
 	}
 
 	public function getIdField()
@@ -82,14 +82,20 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 		return $this;
 	}
 
-	protected function utf8_converter($array)
+	private function array_utf8_converter($array)
     {
-        array_walk_recursive($array, function(&$item, $key) {
-            if (!mb_detect_encoding($item, 'utf-8', true)) {
-                    $item = utf8_encode($item);
-            }
-        });
-     
-        return $array;
+		foreach($array as $key => $value) {
+			if (is_array($value)) {
+				$array[$key] = $this->array_utf8_converter($value);
+			} elseif (is_object($value)) {
+				$array[$key] = $this->array_utf8_converter(json_decode(json_encode($value), true));
+			} else {
+				if (!mb_detect_encoding($value, 'utf-8', true)) {
+					$array[$key] = utf8_encode($value);
+				}
+			}
+		}
+
+		return $array;
     }
 }
