@@ -67,6 +67,7 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 
 	public function jsonSerialize()
 	{
+		$this->data = $this->utf8_converter($this->data);
 		return $this->data;
 	}
 
@@ -80,4 +81,15 @@ abstract class ApiResource implements ApiResourceInterface, \JsonSerializable
 		$this->data = $data;
 		return $this;
 	}
+
+	protected function utf8_converter($array)
+    {
+        array_walk_recursive($array, function(&$item, $key) {
+            if (!mb_detect_encoding($item, 'utf-8', true)) {
+                    $item = utf8_encode($item);
+            }
+        });
+     
+        return $array;
+    }
 }
