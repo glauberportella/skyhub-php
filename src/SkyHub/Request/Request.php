@@ -26,6 +26,7 @@ use SkyHub\Security\Auth;
 use SkyHub\Exception\SkyHubException;
 use SkyHub\Exception\NotFoundException;
 use SkyHub\Exception\RequestException;
+use SkyHub\Utils\JsonUtils;
 
 abstract class Request implements RequestInterface
 {
@@ -377,9 +378,9 @@ abstract class Request implements RequestInterface
     public function createPostBody(ApiResource $resource)
     {
         if (!empty($resource->resourceRequestKey))
-            return json_encode(array($resource->resourceRequestKey => $resource));
+            return JsonUtils::safe_json_encode(array($resource->resourceRequestKey => $resource));
 
-        return json_encode($resource);
+        return JsonUtils::safe_json_encode($resource);
     }
 
     /**
@@ -391,9 +392,9 @@ abstract class Request implements RequestInterface
     public function createPutBody(ApiResource $resource)
     {
         if (!empty($resource->resourceRequestKey))
-            return json_encode(array($resource->resourceRequestKey => $resource));
+            return JsonUtils::safe_json_encode(array($resource->resourceRequestKey => $resource));
 
-        return json_encode($resource);
+        return JsonUtils::safe_json_encode($resource);
     }
 
     /**
